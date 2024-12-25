@@ -5,6 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b153125e-a012-41b3-8532-9c5e8f357078" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Data/Inputdata.robot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/CommonWeb.robot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/PO/Cart.robot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/PO/Checkout-complete.robot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/PO/Checkout-step-one.robot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/PO/Checkout-step-two.robot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/PO/Inventory.robot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/PO/Landing.robot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/PO/TopNav.robot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/SaucedemoApp.robot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/Saucedemo.robot" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -15,10 +26,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2qfNrv5iQ2dY7uBhvZHQXW3KzgV" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -28,9 +42,15 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/GitHub/Robotframework/Part2_UI_Testing/Resources/PO",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GitHub\Robotframework\Part2_UI_Testing\Resources\PO" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
