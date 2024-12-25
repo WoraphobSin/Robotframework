@@ -7,9 +7,6 @@ Resource            ./PO/Inventory.robot
 Resource            ./PO/Landing.robot
 Resource            ./PO/TopNav.robot
 
-*** Variables ***
-
-
 *** Keywords ***
 Go to landing page
     Landing.Navigate to
@@ -32,4 +29,31 @@ Add products to cart
 Go to cart
     TopNav.Click "Cart icon
     Cart.Verify page loaded
-    Cart.Validate products added
+
+Verify products added
+    Cart.Verify products added
+
+Go to checkout step one page
+    Cart.Click "Checkout" button
+    Checkout-step-one.Verify page loaded
+
+Fill Receiver information
+    [Arguments]    ${First_Name}    ${Last_Name}    ${Zip/Postal Code}
+    Checkout-step-one.Fill Receiver information     ${First_Name}    ${Last_Name}    ${Zip/Postal Code}
+
+Go to checkout step two page
+    Checkout-step-one.Click "Continue" button
+    Checkout-step-two.Verify page loaded
+
+Recheck products added
+    Checkout-step-two.Verify products
+
+Verify subtotal price
+    Checkout-step-two.Verify subtotal price
+
+Go to checkout complete page
+    Checkout-step-two.Click "Finish" button
+    Checkout-complete.Verify page loaded
+
+Back to home page
+    Checkout-complete.Click "Back Home" button
