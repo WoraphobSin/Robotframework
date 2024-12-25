@@ -73,7 +73,7 @@ Should be able to go to checkout page
     SaucedemoApp.Verify products added
     SaucedemoApp.Go to checkout step one page
 
-Should be able to go to continue with filled information in checkout-step-one page
+Should be able to continue with filled information in checkout-step-one page
     [Documentation]         ...
     [Tags]                  1007
     SaucedemoApp.Go to landing page
