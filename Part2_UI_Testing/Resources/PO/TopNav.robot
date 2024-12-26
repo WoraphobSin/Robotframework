@@ -19,16 +19,20 @@ Click "Burger" button
 
 Click "ALL Items" link
     Click "Burger" button
+    sleep                   0.1s
     click link              ${TOPNAV_ALL_ITEMS_LINK}
 
 Click "About" link
     Click "Burger" button
+    sleep                   0.1s
     click link              ${TOPNAV_ABOUT_LINK}
 
 Click "Logout" link
     Click "Burger" button
+    sleep                   0.1s
     click link              ${TOPNAV_LOGOUT_LINK}
 
 Click "Reset App State" link
     Click "Burger" button
+    sleep                   0.1s
     click link              ${TOPNAV_RESET_APP_STATE}
