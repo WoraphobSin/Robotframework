@@ -40,6 +40,9 @@ Back to inventory page
 Add products to cart
     Inventory.Click "Add to cart" button
 
+Select Z-A filter
+    Inventory.Select Z-A filter
+
 Go to cart
     TopNav.Click "Cart" icon
     Cart.Verify page loaded

@@ -12,7 +12,13 @@ ${INVENTORY_ADD_PRODUCT_4_TO_CART_BUTTON}       id=add-to-cart-sauce-labs-backpa
 ${INVENTORY_ADD_PRODUCT_5_TO_CART_BUTTON}       id=add-to-cart-sauce-labs-fleece-jacket
 ${INVENTORY_REMOVE_PRODUCT_4_BUTTON}            id=remove-sauce-labs-backpack
 ${INVENTORY_REMOVE_PRODUCT_5_BUTTON}            id=remove-sauce-labs-fleece-jacket
-${INVENTORY_SORT_CONTAINER_SELECT}              //div[@id="header_container"]/div[2]/div/span/select
+
+${INVENTORY_SORT_CONTAINER_SELECT}              xpath=//*[@id="header_container"]/div[2]/div/span/select
+${INVENTORY_SORT_AZ_SELECT}                     xpath=//*[@id="header_container"]/div[2]/div/span/select/option[1]
+${INVENTORY_SORT_ZA_SELECT}                     xpath=//*[@id="header_container"]/div[2]/div/span/select/option[2]
+${INVENTORY_SORT_LOW_TO_HIGH_SELECT}            xpath=//*[@id="header_container"]/div[2]/div/span/select/option[3]
+${INVENTORY_SORT_HIGH_TO_LOW_SELECT}            xpath=//*[@id="header_container"]/div[2]/div/span/select/option[4]
+
 &{PRODUCT_LIST}
 
 *** Keywords ***
@@ -41,6 +47,14 @@ Click "Add to cart" button
     click button        ${INVENTORY_ADD_PRODUCT_4_TO_CART_BUTTON}
     click button        ${INVENTORY_ADD_PRODUCT_5_TO_CART_BUTTON}
 
-Click "Filter" button
-    click button        ${INVENTORY_SORT_CONTAINER_SELECT}
+Select A-Z filter
+    select from list by index       ${INVENTORY_SORT_CONTAINER_SELECT}      1
 
+Select Z-A filter
+    select from list by index       ${INVENTORY_SORT_CONTAINER_SELECT}      2
+
+Select LOW-HIGH filter
+    select from list by index       ${INVENTORY_SORT_CONTAINER_SELECT}      3
+
+Select HIGH-LOW filter
+    select from list by index       ${INVENTORY_SORT_CONTAINER_SELECT}      4
