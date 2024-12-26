@@ -33,3 +33,7 @@ Fill Receiver information
 
 Click "Continue" button
     click button            ${CHECKOUT_CONTINUE_BUTTON}
+
+Expected error message
+    [Arguments]                     ${ExpectedErrorMsg}
+    wait until page contains        ${ExpectedErrorMsg}

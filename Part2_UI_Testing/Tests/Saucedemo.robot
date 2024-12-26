@@ -23,30 +23,17 @@ Login should succeed with valid credentials
     SaucedemoApp.Attempt to login           ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
     SaucedemoApp.Verify inventory page loaded
 
-Login should fail with invalid credentials
-    [Documentation]         Invalid credentials should not be able to login
+Invalid login scenarios should display correct error messages
+    [Documentation]         ...
     [Tags]                  1003
-    SaucedemoApp.Go to landing page
-    SaucedemoApp.Attempt to login           ${INVALID_CREDENTIALS.Username}     ${VALID_PASSWORD}
-    SaucedemoApp.Verify expected message    ${INVALID_CREDENTIALS.ExpectedErrorMsg}
-
-Login should fail with blank username
-    [Documentation]         Blank username should not be able to login
-    [Tags]                  1003
-    SaucedemoApp.Go to landing page
-    SaucedemoApp.Attempt to login           ${BLANK_USERNAME.Username}          ${BLANK_USERNAME.Password}
-    SaucedemoApp.Verify expected message    ${BLANK_USERNAME.ExpectedErrorMsg}
-
-Login should fail with blank password
-    [Documentation]         Blank password should not be able to login
-    [Tags]                  1003
-    SaucedemoApp.Go to landing page
-    SaucedemoApp.Attempt to login           ${BLANK_PASSWORD.Username}          ${BLANK_PASSWORD.Password}
-    SaucedemoApp.Verify expected message    ${BLANK_PASSWORD.ExpectedErrorMsg}
+    [Template]              Test multiple login scenarios
+    ${INVALID_CREDENTIALS}
+    ${BLANK_USERNAME}
+    ${BLANK_PASSWORD}
 
 Products should be able to add to cart
     [Documentation]         Add products to cart
-    [Tags]                  1004    Testing
+    [Tags]                  1004
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login           ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
     SaucedemoApp.Verify inventory page loaded
@@ -83,21 +70,16 @@ Should be able to continue with filled information in checkout-step-one page
     SaucedemoApp.Go to cart
     SaucedemoApp.Verify products added
     SaucedemoApp.Go to checkout step one page
-    SaucedemoApp.Fill Receiver information      ${RECEIVER_FRIST_NAME}  ${RECEIVER_LAST_NAME}   ${RECEIVER_POSTAL_CODE}
+    SaucedemoApp.Fill Receiver information      ${RECEIVER_INFORMATION.First_Name}    ${RECEIVER_INFORMATION.Last_Name}   ${RECEIVER_INFORMATION.Postal_Code}
     SaucedemoApp.Go to checkout step two page
 
-#Should not be able to continue with empty information in checkout-step-one page
-#    [Documentation]         ...
-#    [Tags]                  ...
-#    SaucedemoApp.Go to landing page
-#    SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
-#    SaucedemoApp.Verify inventory page loaded
-#    SaucedemoApp.Add products to cart
-#    SaucedemoApp.Go to cart
-#    SaucedemoApp.Verify products added
-#    SaucedemoApp.Go to checkout step one page
-#    SaucedemoApp.Fill Receiver information      ${RECEIVER_FRIST_NAME}  ${RECEIVER_LAST_NAME}   ${RECEIVER_POSTAL_CODE}
-#    SaucedemoApp.Go to checkout step two page
+Should not be able to continue with empty information in checkout-step-one page
+    [Documentation]         ...
+    [Tags]                  1008
+    [Template]              Test multiple checkout information scenarios
+    ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}       ${RECEIVER_BLANK_FIRST_NAME}
+    ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}       ${RECEIVER_BLANK_LAST_NAME}
+    ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}       ${RECEIVER_BLANK_POSTAL_CODE}
 
 Checkout-step-two page should contains correct products and price
     [Documentation]         ...
@@ -109,7 +91,7 @@ Checkout-step-two page should contains correct products and price
     SaucedemoApp.Go to cart
     SaucedemoApp.Verify products added
     SaucedemoApp.Go to checkout step one page
-    SaucedemoApp.Fill Receiver information      ${RECEIVER_FRIST_NAME}  ${RECEIVER_LAST_NAME}   ${RECEIVER_POSTAL_CODE}
+    SaucedemoApp.Fill Receiver information      ${RECEIVER_INFORMATION.First_Name}    ${RECEIVER_INFORMATION.Last_Name}   ${RECEIVER_INFORMATION.Postal_Code}
     SaucedemoApp.Go to checkout step two page
     SaucedemoApp.Recheck products added
     SaucedemoApp.Verify subtotal price
@@ -124,13 +106,13 @@ Checkout-complete page should loads
     SaucedemoApp.Go to cart
     SaucedemoApp.Verify products added
     SaucedemoApp.Go to checkout step one page
-    SaucedemoApp.Fill Receiver information      ${RECEIVER_FRIST_NAME}  ${RECEIVER_LAST_NAME}   ${RECEIVER_POSTAL_CODE}
+    SaucedemoApp.Fill Receiver information      ${RECEIVER_INFORMATION.First_Name}    ${RECEIVER_INFORMATION.Last_Name}   ${RECEIVER_INFORMATION.Postal_Code}
     SaucedemoApp.Go to checkout step two page
     SaucedemoApp.Recheck products added
     SaucedemoApp.Verify subtotal price
     SaucedemoApp.Go to checkout complete page
 
-Home page should load after checkout complete
+Home page should load after click "Back Home"
     [Documentation]         ...
     [Tags]                  1011
     SaucedemoApp.Go to landing page
@@ -140,9 +122,38 @@ Home page should load after checkout complete
     SaucedemoApp.Go to cart
     SaucedemoApp.Verify products added
     SaucedemoApp.Go to checkout step one page
-    SaucedemoApp.Fill Receiver information      ${RECEIVER_FRIST_NAME}  ${RECEIVER_LAST_NAME}   ${RECEIVER_POSTAL_CODE}
+    SaucedemoApp.Fill Receiver information      ${RECEIVER_INFORMATION.First_Name}    ${RECEIVER_INFORMATION.Last_Name}   ${RECEIVER_INFORMATION.Postal_Code}
     SaucedemoApp.Go to checkout step two page
     SaucedemoApp.Recheck products added
     SaucedemoApp.Verify subtotal price
     SaucedemoApp.Go to checkout complete page
     SaucedemoApp.Back to home page
+
+Should be able to log out
+    [Documentation]         ...
+    [Tags]                  1012
+    SaucedemoApp.Go to landing page
+    SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
+    SaucedemoApp.Verify inventory page loaded
+    SaucedemoApp.Attempt to logout
+
+Continue shopping button should be back to inventory page
+    [Documentation]         ...
+    [Tags]                  1013
+    SaucedemoApp.Go to landing page
+    SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
+    SaucedemoApp.Verify inventory page loaded
+    SaucedemoApp.Add products to cart
+    SaucedemoApp.Go to cart
+    SaucedemoApp.Verify products added
+    SaucedemoApp.Back to inventory page
+
+Products should be able to remove from cart
+    [Documentation]         ...
+    [Tags]                  1014
+    SaucedemoApp.Go to landing page
+    SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
+    SaucedemoApp.Verify inventory page loaded
+    SaucedemoApp.Add products to cart
+    SaucedemoApp.Go to cart
+    SaucedemoApp.Remove products from cart

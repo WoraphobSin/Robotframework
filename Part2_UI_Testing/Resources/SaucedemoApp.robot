@@ -16,19 +16,37 @@ Attempt to login
     [Arguments]     ${USERNAME}     ${PASSWORD}
     Landing.Try to login            ${USERNAME}     ${PASSWORD}
 
+Attempt to logout
+    TopNav.Click "Logout" link
+    Landing.Verify page loaded
+
+Test multiple login scenarios
+    [Arguments]    ${Crentials}
+    Go to landing page
+    Attempt to login                            ${Crentials.Username}     ${Crentials.Password}
+    Verify expected message in login page       ${Crentials.ExpectedErrorMsg}
+
 Verify inventory page loaded
     Inventory.Verify page loaded
 
-Verify expected message
+Verify expected message in login page
     [Arguments]    ${ExpectedErrorMsg}
     Landing.Expected error message  ${ExpectedErrorMsg}
 
+Back to inventory page
+    Cart.Click "Continue Shopping" button
+    Inventory.Verify page loaded
+
 Add products to cart
-    Inventory.Click "Add to cart" button"
+    Inventory.Click "Add to cart" button
 
 Go to cart
-    TopNav.Click "Cart icon
+    TopNav.Click "Cart" icon
     Cart.Verify page loaded
+
+Remove products from cart
+    Cart.Click "Remove" button
+    Cart.Verify products removed
 
 Verify products added
     Cart.Verify products added
@@ -40,6 +58,24 @@ Go to checkout step one page
 Fill Receiver information
     [Arguments]    ${First_Name}    ${Last_Name}    ${Zip/Postal Code}
     Checkout-step-one.Fill Receiver information     ${First_Name}    ${Last_Name}    ${Zip/Postal Code}
+
+Verify expected message in checkout information page
+    [Arguments]    ${ExpectedErrorMsg}
+    Checkout-step-one.Expected error message        ${ExpectedErrorMsg}
+
+Test multiple checkout information scenarios
+    [Arguments]    ${Username}      ${Password}     ${Receiver_Information}
+    Go to landing page
+    Attempt to login                ${Username}[0]  ${Password}
+    Verify inventory page loaded
+    Add products to cart
+    Go to cart
+    Verify products added
+    Go to checkout step one page
+    Fill Receiver information       ${Receiver_Information.First_Name}    ${Receiver_Information.Last_Name}   ${Receiver_Information.Postal_Code}
+    Checkout-step-one.Click "Continue" button
+    Verify expected message in checkout information page    ${Receiver_Information.ExpectedErrorMsg}
+    TopNav.Click "Reset App State" link
 
 Go to checkout step two page
     Checkout-step-one.Click "Continue" button

@@ -14,7 +14,7 @@ Navigate to
     go to                               ${URL}
 
 Verify page loaded
-    wait until page contains element    ${LANDING_HEADER_LABEL}
+    wait until page contains element    ${LANDONG_LOGIN_BUTTON}
 
 Fill username field
     [Arguments]                         ${USERNAME}

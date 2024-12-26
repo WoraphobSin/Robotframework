@@ -17,6 +17,8 @@ ${PRODUCT_PRICE_1}          xpath=//div[@class='inventory_list']/div[4]/div[2]/d
 ${PRODUCT_PRICE_2}          xpath=//div[@class='inventory_list']/div[5]/div[2]/div[2]/div[1]
 
 # Receiver information
-${RECEIVER_FRIST_NAME}      Tony
-${RECEIVER_LAST_NAME}       Stark
-${RECEIVER_POSTAL_CODE}     A-22
+&{RECEIVER_INFORMATION}            First_Name=Tony     Last_Name=Stark     Postal_Code=A-22
+
+&{RECEIVER_BLANK_FIRST_NAME}       First_Name=         Last_Name=foo       Postal_Code=11111      ExpectedErrorMsg=Error: First Name is required
+&{RECEIVER_BLANK_LAST_NAME}        First_Name=qwe      Last_Name=          Postal_Code=00000      ExpectedErrorMsg=Error: Last Name is required
+&{RECEIVER_BLANK_POSTAL_CODE}      First_Name=zxc      Last_Name=xxx       Postal_Code=           ExpectedErrorMsg=Error: Postal Code is required
