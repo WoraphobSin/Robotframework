@@ -43,20 +43,34 @@ Should not be able to edit product information
 
 Should be able to delete product
     [Documentation]         Verify that product has been deleted
-    [Tags]                  1007    DELETE    DEV
-    FakeStoreAPIApp.Delete product from FakeStore       ${URL}              ${STATUS_SUCCESS}
+    [Tags]                  1007    DELETE
+    FakeStoreAPIApp.Delete product from FakeStore       ${URL}              ${STATUS_SUCCESS}       ${PRODUCT_ID}
+
+Should not be able to delete product that does not exit
+    [Documentation]         Verify that product does not exit can not delete
+    [Tags]                  1008    DELETE
+    FakeStoreAPIApp.Delete product doesn't exit from FakeStore       ${URL}              ${STATUS_SUCCESS}       ${INVALID_PRODUCT_ID}[1]
 
 Should not be able to delete product
     [Documentation]         Verify that product can not delete
-    [Tags]                  1008    DELETE
-    FakeStoreAPIApp.Delete product from FakeStore       ${INVALID_URL}      ${STATUS_NOT_FOUND}
+    [Tags]                  1009    DELETE
+    FakeStoreAPIApp.Delete product from FakeStore       ${INVALID_URL}      ${STATUS_NOT_FOUND}     ${PRODUCT_ID}
 
 Should be able to get product categories
     [Documentation]         Verify that product categories have retrieved successfully
-    [Tags]                  1009    GET
+    [Tags]                  1010    GET
     FakeStoreAPIApp.Get product categories              ${URL}              ${STATUS_SUCCESS}
 
 Should not be able to get product categories
     [Documentation]         Verify that product categories have not retrieved
-    [Tags]                  1010    GET
+    [Tags]                  1011    GET
     FakeStoreAPIApp.Get product categories              ${INVALID_URL}      ${STATUS_NOT_FOUND}
+
+Test multiple scenarios of sorting
+    [Documentation]         ...
+    [Tags]                  1012    GET    SORT
+    [Template]              FakeStoreAPIApp.Get sort products
+    ${URL}              ${STATUS_SUCCESS}       ${SORT_ASC}
+    ${INVALID_URL}      ${STATUS_NOT_FOUND}     ${SORT_ASC}
+    ${URL}              ${STATUS_SUCCESS}       ${SORT_DESC}
+    ${INVALID_URL}      ${STATUS_NOT_FOUND}     ${SORT_DESC}
