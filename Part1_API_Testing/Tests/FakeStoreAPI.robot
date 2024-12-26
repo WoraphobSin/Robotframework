@@ -14,12 +14,12 @@ Test Teardown           CommonAPI.End API test
 Should be able to get all product
     [Documentation]         Verify that all products can be retrieved successfully
     [Tags]                  1001    GET
-    FakeStoreAPIApp.Check FakeStore all product         ${URL}              ${STATUS_SUCCESS}
+    FakeStoreAPIApp.Get all product from FakeStore         ${URL}              ${STATUS_SUCCESS}
 
 Should not be able to get all product
     [Documentation]         Verify that all products can not be retrieved
     [Tags]                  1002    GET
-    FakeStoreAPIApp.Check FakeStore all product         ${INVALID_URL}      ${STATUS_NOT_FOUND}
+    FakeStoreAPIApp.Get all product from FakeStore        ${INVALID_URL}      ${STATUS_NOT_FOUND}
 
 Should be able to add new product
     [Documentation]         Verify that product has added successfully
@@ -43,10 +43,20 @@ Should not be able to edit product information
 
 Should be able to delete product
     [Documentation]         Verify that product has been deleted
-    [Tags]                  1007    DELETE
+    [Tags]                  1007    DELETE    DEV
     FakeStoreAPIApp.Delete product from FakeStore       ${URL}              ${STATUS_SUCCESS}
 
 Should not be able to delete product
     [Documentation]         Verify that product can not delete
     [Tags]                  1008    DELETE
     FakeStoreAPIApp.Delete product from FakeStore       ${INVALID_URL}      ${STATUS_NOT_FOUND}
+
+Should be able to get product categories
+    [Documentation]         Verify that product categories have retrieved successfully
+    [Tags]                  1009    GET
+    FakeStoreAPIApp.Get product categories              ${URL}              ${STATUS_SUCCESS}
+
+Should not be able to get product categories
+    [Documentation]         Verify that product categories have not retrieved
+    [Tags]                  1010    GET
+    FakeStoreAPIApp.Get product categories              ${INVALID_URL}      ${STATUS_NOT_FOUND}
