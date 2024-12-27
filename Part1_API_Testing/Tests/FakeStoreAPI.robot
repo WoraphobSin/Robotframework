@@ -49,7 +49,7 @@ Should be able to delete product
 Should not be able to delete product that does not exit
     [Documentation]         Verify that product does not exit can not delete
     [Tags]                  1008    DELETE
-    FakeStoreAPIApp.Delete product doesn't exit from FakeStore       ${URL}              ${STATUS_SUCCESS}       ${INVALID_PRODUCT_ID}[1]
+    FakeStoreAPIApp.Delete product doesn't exit from FakeStore       ${URL}              ${STATUS_SUCCESS}       ${INVALID_PRODUCT_ID}[2]
 
 Should not be able to delete product
     [Documentation]         Verify that product can not delete
@@ -74,3 +74,13 @@ Test multiple scenarios of sorting
     ${INVALID_URL}      ${STATUS_NOT_FOUND}     ${SORT_ASC}
     ${URL}              ${STATUS_SUCCESS}       ${SORT_DESC}
     ${INVALID_URL}      ${STATUS_NOT_FOUND}     ${SORT_DESC}
+
+Should be able to get single product
+    [Documentation]         Verify that single product can be retrieved successfully
+    [Tags]                  1013    GET
+    FakeStoreAPIApp.Get single product from FakeStore         ${URL}         ${STATUS_SUCCESS}      ${PRODUCT_ID}
+
+Should not be able to get product does not exit
+    [Documentation]         Verify that product doesn't exit cant be retrieved
+    [Tags]                  1014    GET
+    FakeStoreAPIApp.Get single product that doesn't exit from FakeStore         ${URL}         ${STATUS_SUCCESS}      ${INVALID_PRODUCT_ID}[2]

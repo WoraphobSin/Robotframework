@@ -1,52 +1,68 @@
 *** Settings ***
 Library         RequestsLibrary
-
+Library         JSONLibrary
+Library         Collections
 *** Variables ***
 
 
 *** Keywords ***
 Get all product from FakeStore
     [Arguments]         ${URL}      ${Status}
-    ${Respone}          GET On Session      ${CREATED_SESSION}      ${URL}${PRODUCTS_PATH}      expected_status=${Status}
+    ${Response}          GET On Session      ${CREATED_SESSION}      ${URL}${PRODUCTS_PATH}      expected_status=${Status}
     IF  ${Status} == 200
-        ${All_Product}      set variable        ${Respone.json()}
+        ${All_Product}      set variable        ${Response.json()}
         log                 ${All_Product}
+    END
+
+Get single product from FakeStore
+    [Arguments]             ${URL}      ${Status}       ${PRODUCT_ID}
+    ${Response}             GET On Session      ${CREATED_SESSION}      ${URL}${PRODUCTS_PATH}/${PRODUCT_ID}      expected_status=${Status}
+    IF  ${Status} == 200
+        ${Product}    set variable    ${Response.json()}
+        log      ${Product}
+    END
+
+Get single product that doesn't exit from FakeStore
+    [Arguments]             ${URL}      ${Status}       ${INVALID_PRODUCT_ID}
+    ${Response}             GET On Session      ${CREATED_SESSION}      ${URL}${PRODUCTS_PATH}/${INVALID_PRODUCT_ID}      expected_status=${Status}
+    IF  ${Status} == 200
+        should not be true    ${Response.content}
     END
 
 Add new product to FakeStore
     [Arguments]         ${URL}      ${Status}
-    ${Respone}          POST On Session     ${CREATED_SESSION}      ${URL}${PRODUCTS_PATH}     ${NEW_PRODUCT}    expected_status=${Status}
+    ${Response}          POST On Session     ${CREATED_SESSION}      ${URL}${PRODUCTS_PATH}     ${NEW_PRODUCT}    expected_status=${Status}
     IF    ${Status} == 200
-          ${Created_Product}  set variable        ${Respone.json()}
+          ${Created_Product}  set variable        ${Response.json()}
           log                 ${Created_Product}
     END
 
 Edit product information
     [Arguments]         ${URL}      ${Status}
-    ${Respone}          PUT On Session    ${CREATED_SESSION}        ${URL}${PRODUCTS_PATH}/${PRODUCT_ID}    ${EDIT_PRODUCT}     expected_status=${Status}
+    ${Response}          PUT On Session    ${CREATED_SESSION}        ${URL}${PRODUCTS_PATH}/${PRODUCT_ID}    ${EDIT_PRODUCT}     expected_status=${Status}
     IF    ${Status} == 200
-          ${Edited_Product}  set variable        ${Respone.json()}
+          ${Edited_Product}  set variable        ${Response.json()}
           log                 ${Edited_Product}
     END
 
 Delete product from FakeStore
     [Arguments]         ${URL}      ${STATUS}       ${PRODUCT_ID}
-    ${Respone}     DELETE On Session      ${CREATED_SESSION}     ${URL}${PRODUCTS_PATH}/${PRODUCT_ID}    expected_status=${Status}
+    ${Response}     DELETE On Session      ${CREATED_SESSION}     ${URL}${PRODUCTS_PATH}/${PRODUCT_ID}    expected_status=${Status}
     log   ${PRODUCT_ID}
     IF    ${Status} == 200
-          ${Deleted_Product}  set variable        ${Respone.json()}
+          ${Deleted_Product}  set variable        ${Response.json()}
           log                 ${Deleted_Product}
-          should be true      ${Deleted_Product}    # Ensure respone is not empty
+          should be true      ${Deleted_Product}    # Ensure Response is not empty
     END
 
 Delete product doesn't exit from FakeStore
     [Arguments]         ${URL}      ${STATUS}       ${PRODUCT_ID}
-    ${Respone}     DELETE On Session      ${CREATED_SESSION}     ${URL}${PRODUCTS_PATH}/${PRODUCT_ID}    expected_status=${Status}
+    ${Response}     DELETE On Session      ${CREATED_SESSION}     ${URL}${PRODUCTS_PATH}/${PRODUCT_ID}    expected_status=${Status}
     log   ${PRODUCT_ID}
     IF    ${Status} == 200
-          ${Deleted_Product}  set variable        ${Respone.json()}
+          ${Deleted_Product}  set variable        ${Response.json()}
           log                 ${Deleted_Product}
-          should not be true  ${Deleted_Product}    # Ensure respone is empty
+          should not be true  ${Deleted_Product}    # Ensure Response is empty
     END
 ##############################################################################
 #Delete product from FakeStore
@@ -61,27 +77,27 @@ Delete product doesn't exit from FakeStore
 #
 #Delete product
 #    [Arguments]    ${Status}
-#    ${Respone}     DELETE On Session      ${CREATED_SESSION}     ${URL}${PRODUCTS_PATH}/${PRODUCT_ID}    expected_status=${Status}
-#    run keyword if    ${Status} == 200    Store respone          ${Respone}
+#    ${Response}     DELETE On Session      ${CREATED_SESSION}     ${URL}${PRODUCTS_PATH}/${PRODUCT_ID}    expected_status=${Status}
+#    run keyword if    ${Status} == 200    Store Response          ${Response}
 #
 #
-#Store respone
-#    [Arguments]    ${Respone}
-#    ${Deleted_Product}  set variable        ${Respone.json()}
+#Store Response
+#    [Arguments]    ${Response}
+#    ${Deleted_Product}  set variable        ${Response.json()}
 #    log               ${Deleted_Product}
 ################################################################################
 Get product categories
     [Arguments]         ${URL}      ${STATUS}
-    ${Respone}          GET On Session      ${CREATED_SESSION}      ${URL}${PRODUCTS_PATH}${CATEGORY_PATH}      expected_status=${Status}
+    ${Response}          GET On Session      ${CREATED_SESSION}      ${URL}${PRODUCTS_PATH}${CATEGORY_PATH}      expected_status=${Status}
     IF  ${Status} == 200
-        ${Categories}       set variable        ${Respone.json()}
+        ${Categories}       set variable        ${Response.json()}
         log                 ${Categories}
     END
 
 Get sort products
     [Arguments]         ${URL}      ${STATUS}   ${SORT_TYPE}
-    ${Respone}          GET On Session      ${CREATED_SESSION}      ${URL}${PRODUCTS_PATH}${SORT_TYPE}      expected_status=${Status}
+    ${Response}          GET On Session      ${CREATED_SESSION}      ${URL}${PRODUCTS_PATH}${SORT_TYPE}      expected_status=${Status}
     IF  ${Status} == 200
-        ${Sorted_Product}       set variable        ${Respone.json()}
+        ${Sorted_Product}       set variable        ${Response.json()}
         log                 ${Sorted_Product}
     END
