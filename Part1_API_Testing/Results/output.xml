@@ -1,81 +1,1233 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.1.1 (Python 3.13.1 on win32)" generated="2024-12-27T10:16:57.407776" rpa="false" schemaversion="5">
+<robot generator="Robot 7.1.1 (Python 3.13.1 on win32)" generated="2024-12-27T10:53:00.832506" rpa="false" schemaversion="5">
 <suite id="s1" name="FakeStoreAPI" source="D:\GitHub\Robotframework\Part1_API_Testing\Tests\FakeStoreAPI.robot">
-<test id="s1-t1" name="Should not be able to get product does not exit" line="83">
+<test id="s1-t1" name="Should not be able to delete product that does not exit" line="49">
 <kw name="Begin API test" owner="CommonAPI" type="SETUP">
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2024-12-27T10:16:57.745399" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg time="2024-12-27T10:53:01.149899" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
 <arg>${CREATED_SESSION}</arg>
 <arg>${URL}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2024-12-27T10:16:57.745257" elapsed="0.000272"/>
+<status status="PASS" start="2024-12-27T10:53:01.149778" elapsed="0.000250"/>
 </kw>
-<status status="PASS" start="2024-12-27T10:16:57.744791" elapsed="0.000797"/>
+<status status="PASS" start="2024-12-27T10:53:01.149452" elapsed="0.000631"/>
+</kw>
+<kw name="Delete product doesn't exit from FakeStore" owner="FakeStoreAPIApp">
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:04.210208" level="INFO">DELETE Request : url=https://fakestoreapi.com/products/3.142857 
+ path_url=/products/3.142857 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:04.210412" level="INFO">DELETE Response : url=https://fakestoreapi.com/products/3.142857 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:29 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '4', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'etag': 'W/"4-K+iMpCQsduglOsYkdIUQZQMtaDM"', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=6hl8LFE%2F%2F%2BW3R%2BfngO7IopyqRkpF8e%2F5WUu0musH4OCuUEtzpfRVIJbGmp36QwN1IiAavkMBLp7swHkgA4ghXEx56Q9WOl7jl6VoU3vMMnKANGUEvfGE3PTtYksW%2FtXaW2DmikC6TLACKcK44tHl"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865d131b5f8802-SIN', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=28445&amp;min_rtt=27976&amp;rtt_var=10826&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2853&amp;recv_bytes=805&amp;delivery_rate=145839&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=7bf33c1f9e28f266&amp;ts=2885&amp;x=0"'} 
+ body=null 
+ </msg>
+<msg time="2024-12-27T10:53:04.210533" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:04.210970" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}/${PRODUCT_ID}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:01.150476" elapsed="3.060542"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:04.211735" level="INFO">3.142857</msg>
+<arg>${PRODUCT_ID}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:04.211344" elapsed="0.000498"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-12-27T10:53:04.213837" level="INFO">${Deleted_Product} = None</msg>
+<var>${Deleted_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-12-27T10:53:04.212654" elapsed="0.001248"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:04.214391" level="INFO">None</msg>
+<arg>${Deleted_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:04.214139" elapsed="0.000338"/>
+</kw>
+<kw name="Should Not Be True" owner="BuiltIn">
+<arg>${Deleted_Product}</arg>
+<doc>Fails if the given condition is true.</doc>
+<status status="PASS" start="2024-12-27T10:53:04.214618" elapsed="0.000735"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:04.212092" elapsed="0.003346"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:04.211988" elapsed="0.003509"/>
+</if>
+<arg>${URL}</arg>
+<arg>${STATUS_SUCCESS}</arg>
+<arg>${INVALID_PRODUCT_ID}[2]</arg>
+<status status="PASS" start="2024-12-27T10:53:01.150277" elapsed="3.065316"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:04.216720" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:04.216588" elapsed="0.000326"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:04.216184" elapsed="0.000867"/>
+</kw>
+<doc>Verify that product does not exit can not delete</doc>
+<tag>1008</tag>
+<tag>DELETE</tag>
+<status status="PASS" start="2024-12-27T10:53:01.149015" elapsed="3.068275"/>
+</test>
+<test id="s1-t2" name="Should not be able to get all product" line="19">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:04.219561" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:04.219317" elapsed="0.000438"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:04.218907" elapsed="0.000925"/>
+</kw>
+<kw name="Get all product from FakeStore" owner="FakeStoreAPIApp">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:08.883614" level="INFO">GET Request : url=https://fakestoreapi.com/test/products 
+ path_url=/test/products 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:08.883813" level="INFO">GET Response : url=https://fakestoreapi.com/test/products 
+ status=404, reason=Not Found 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:33 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'content-security-policy': "default-src 'none'", 'x-content-type-options': 'nosniff', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=oomGVB530%2FgTXrvwAffNj7pOOIlnBS8pz%2B8RDJTLGnI6jLPYboJR4VZO1pe%2B8A6ycCHzEN6TT%2FnczXYwBTB8t%2Bgq0myUXiSrvaawL%2BoGZP1uCL4n7DZh1UyviS9aiE3ZOmRd2M8JIZccMvX%2FtzTI"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865d25be274dd4-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=30667&amp;min_rtt=30187&amp;rtt_var=11663&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2853&amp;recv_bytes=779&amp;delivery_rate=135157&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=78aa84e153c4ca3b&amp;ts=4577&amp;x=0"'} 
+ body=&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Error&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;pre&gt;Cannot GET /test/products&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+ 
+ </msg>
+<msg time="2024-12-27T10:53:08.884209" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:08.884819" level="INFO">${Response} = &lt;Response [404]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:04.220605" elapsed="4.664312"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${All_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:08.885555" elapsed="0.000042"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${All_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:08.885750" elapsed="0.000027"/>
+</kw>
+<status status="NOT RUN" start="2024-12-27T10:53:08.885110" elapsed="0.000719"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:08.885074" elapsed="0.000805"/>
+</if>
+<arg>${INVALID_URL}</arg>
+<arg>${STATUS_NOT_FOUND}</arg>
+<status status="PASS" start="2024-12-27T10:53:04.220205" elapsed="4.665864"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:08.887072" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:08.886990" elapsed="0.000173"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:08.886660" elapsed="0.000562"/>
+</kw>
+<doc>Verify that all products can not be retrieved</doc>
+<tag>1002</tag>
+<tag>GET</tag>
+<status status="PASS" start="2024-12-27T10:53:04.218050" elapsed="4.669297"/>
+</test>
+<test id="s1-t3" name="Should not be able to get product does not exit" line="83">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:08.888662" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:08.888530" elapsed="0.000253"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:08.888330" elapsed="0.000506"/>
 </kw>
 <kw name="Get single product that doesn't exit from FakeStore" owner="FakeStoreAPIApp">
 <kw name="GET On Session" owner="RequestsLibrary">
-<msg time="2024-12-27T10:17:00.798608" level="INFO">GET Request : url=https://fakestoreapi.com/products/3.142857 
+<msg time="2024-12-27T10:53:13.862677" level="INFO">GET Request : url=https://fakestoreapi.com/products/3.142857 
  path_url=/products/3.142857 
  headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
  body=None 
  </msg>
-<msg time="2024-12-27T10:17:00.798881" level="INFO">GET Response : url=https://fakestoreapi.com/products/3.142857 
+<msg time="2024-12-27T10:53:13.862813" level="INFO">GET Response : url=https://fakestoreapi.com/products/3.142857 
  status=200, reason=OK 
- headers={'Date': 'Fri, 27 Dec 2024 03:17:25 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '0', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=yDltk26MxVyMynxRl%2F%2F6I2A2LhM2UzsCLE5jgIqLQ9Z7SpugTYwvoIPlnc57ATz3hOZNmCA4TUX7P9I6AHmh%2F5q20KSzaM%2BTE7vHUyByn0pSoTFJWw8ngXRuDNmApd2gXafsxrKeyXRNEx%2Bxk4ej"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f862840ad873f71-SIN', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=29183&amp;min_rtt=28780&amp;rtt_var=11080&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2852&amp;recv_bytes=783&amp;delivery_rate=141765&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=209ebdc541ad903e&amp;ts=2976&amp;x=0"'} 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:38 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '0', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=x4AhdElXpoEcGnp4LiA2sD3tqwL9Qr7ZvcUW9GMdo6a%2BYpLDSXg%2FkBEn0aOBPgGpTxT%2BFLTz06%2B1Ca57XSnTTFN9C%2BmotoVZBW4dEYO0cpgW1dhbPagU4z%2Fh8tm4uxO%2BY86TOKHSrHEqXwdXXOXy"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865d426fa81d37-BKK', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=4654&amp;min_rtt=4003&amp;rtt_var=1966&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2853&amp;recv_bytes=783&amp;delivery_rate=1019235&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=5a436b1b08c95919&amp;ts=4950&amp;x=0"'} 
  body=None 
  </msg>
-<msg time="2024-12-27T10:17:00.799106" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+<msg time="2024-12-27T10:53:13.862903" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
   warnings.warn(</msg>
-<msg time="2024-12-27T10:17:00.799866" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<msg time="2024-12-27T10:53:13.863123" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
 <var>${Response}</var>
 <arg>${CREATED_SESSION}</arg>
 <arg>${URL}${PRODUCTS_PATH}/${INVALID_PRODUCT_ID}</arg>
 <arg>expected_status=${Status}</arg>
 <doc>Sends a GET request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2024-12-27T10:16:57.745964" elapsed="3.054032"/>
+<status status="PASS" start="2024-12-27T10:53:08.889282" elapsed="4.973868"/>
 </kw>
 <if>
 <branch type="IF" condition="${Status} == 200">
 <kw name="Should Not Be True" owner="BuiltIn">
 <arg>${Response.content}</arg>
 <doc>Fails if the given condition is true.</doc>
-<status status="PASS" start="2024-12-27T10:17:00.801232" elapsed="0.001560"/>
+<status status="PASS" start="2024-12-27T10:53:13.863728" elapsed="0.001074"/>
 </kw>
-<status status="PASS" start="2024-12-27T10:17:00.800479" elapsed="0.002448"/>
+<status status="PASS" start="2024-12-27T10:53:13.863262" elapsed="0.001616"/>
 </branch>
-<status status="PASS" start="2024-12-27T10:17:00.800380" elapsed="0.002630"/>
+<status status="PASS" start="2024-12-27T10:53:13.863240" elapsed="0.001679"/>
 </if>
 <arg>${URL}</arg>
 <arg>${STATUS_SUCCESS}</arg>
 <arg>${INVALID_PRODUCT_ID}[2]</arg>
-<status status="PASS" start="2024-12-27T10:16:57.745770" elapsed="3.057400"/>
+<status status="PASS" start="2024-12-27T10:53:08.889040" elapsed="4.975948"/>
 </kw>
 <kw name="End API test" owner="CommonAPI" type="TEARDOWN">
 <kw name="Delete All Sessions" owner="RequestsLibrary">
-<msg time="2024-12-27T10:17:00.804879" level="INFO">Deleting All Sessions</msg>
+<msg time="2024-12-27T10:53:13.866348" level="INFO">Deleting All Sessions</msg>
 <doc>Removes all the session objects</doc>
-<status status="PASS" start="2024-12-27T10:17:00.804700" elapsed="0.000267"/>
+<status status="PASS" start="2024-12-27T10:53:13.866212" elapsed="0.000253"/>
 </kw>
-<status status="PASS" start="2024-12-27T10:17:00.804049" elapsed="0.000948"/>
+<status status="PASS" start="2024-12-27T10:53:13.865687" elapsed="0.000885"/>
 </kw>
 <doc>Verify that product doesn't exit cant be retrieved</doc>
 <tag>1014</tag>
 <tag>GET</tag>
-<status status="PASS" start="2024-12-27T10:16:57.744241" elapsed="3.060809"/>
+<status status="PASS" start="2024-12-27T10:53:08.887929" elapsed="4.978852"/>
+</test>
+<test id="s1-t4" name="Should be able to get single product" line="78">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:13.869093" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:13.868694" elapsed="0.000606"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:13.868300" elapsed="0.001168"/>
+</kw>
+<kw name="Get single product from FakeStore" owner="FakeStoreAPIApp">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:14.251207" level="INFO">GET Request : url=https://fakestoreapi.com/products/19 
+ path_url=/products/19 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:14.251343" level="INFO">GET Response : url=https://fakestoreapi.com/products/19 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:39 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'etag': 'W/"231-+GdJpsl9ZggA7anIClZxES/5GQk"', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=8s6OBAv6IKZ%2BkLDMp9CVXhx1qjL5rTYfT8LrQ%2FYR420dcA%2FJoQ4QrsYPlLRApAx0bBKL92BIge9EFCv1VDlVcJjXCHNQg0Be4i3N1L7Jk7bAc1Qn8ke9d36XX9mXbvh5d4f1FUoCoEdNzr0LCH8H"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865d61fbfb0e72-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=29635&amp;min_rtt=28781&amp;rtt_var=11403&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2853&amp;recv_bytes=777&amp;delivery_rate=141760&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=c488f10f4c3cf5e0&amp;ts=298&amp;x=0"'} 
+ body={"id":19,"title":"Opna Women's Short Sleeve Moisture","price":7.95,"description":"100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort","category":"women's clothing","image":"https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg","rating":{"rate":4.5,"count":146}} 
+ </msg>
+<msg time="2024-12-27T10:53:14.251581" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:14.251934" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}/${PRODUCT_ID}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:13.870917" elapsed="0.381056"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-12-27T10:53:14.253180" level="INFO">${Product} = {'id': 19, 'title': "Opna Women's Short Sleeve Moisture", 'price': 7.95, 'description': '100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lig...</msg>
+<var>${Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-12-27T10:53:14.252417" elapsed="0.000791"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:14.253460" level="INFO">{'id': 19, 'title': "Opna Women's Short Sleeve Moisture", 'price': 7.95, 'description': '100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg', 'rating': {'rate': 4.5, 'count': 146}}</msg>
+<arg>${Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:14.253336" elapsed="0.000163"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:14.252120" elapsed="0.001410"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:14.252094" elapsed="0.001459"/>
+</if>
+<arg>${URL}</arg>
+<arg>${STATUS_SUCCESS}</arg>
+<arg>${PRODUCT_ID}</arg>
+<status status="PASS" start="2024-12-27T10:53:13.870245" elapsed="0.383347"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:14.254167" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:14.254101" elapsed="0.000126"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:14.253926" elapsed="0.000349"/>
+</kw>
+<doc>Verify that single product can be retrieved successfully</doc>
+<tag>1013</tag>
+<tag>GET</tag>
+<status status="PASS" start="2024-12-27T10:53:13.867571" elapsed="0.386887"/>
+</test>
+<test id="s1-t5" name="Should not be able to delete product" line="54">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:14.255959" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:14.255820" elapsed="0.000277"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:14.255594" elapsed="0.000566"/>
+</kw>
+<kw name="Delete product from FakeStore" owner="FakeStoreAPIApp">
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:19.050582" level="INFO">DELETE Request : url=https://fakestoreapi.com/test/products/19 
+ path_url=/test/products/19 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:19.050677" level="INFO">DELETE Response : url=https://fakestoreapi.com/test/products/19 
+ status=404, reason=Not Found 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:43 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'content-security-policy': "default-src 'none'", 'x-content-type-options': 'nosniff', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=cRFPJ6exA%2BpYP3Ttgh3oXySwOI2ZJEzaWnZ7iu69nCeXmheIKyxqKemn%2FKwOPr1RL1cSAIxHLFkZHdO2uDzIQXVOCNKilon2OlLMeKADF2O%2FRAic9a5GdEFWTssOUwIq5hlEYMjAdHOqVecXvMYu"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865d63f8307991-BKK', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=4617&amp;min_rtt=4118&amp;rtt_var=1901&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2852&amp;recv_bytes=804&amp;delivery_rate=990772&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=9908fd05ce6baba7&amp;ts=4769&amp;x=0"'} 
+ body=&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Error&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;pre&gt;Cannot DELETE /test/products/19&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+ 
+ </msg>
+<msg time="2024-12-27T10:53:19.050753" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:19.050944" level="INFO">${Response} = &lt;Response [404]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}/${PRODUCT_ID}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:14.256679" elapsed="4.794292"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:19.051270" level="INFO">19</msg>
+<arg>${PRODUCT_ID}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:19.051129" elapsed="0.000175"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${Deleted_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:19.051570" elapsed="0.000020"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${Deleted_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:19.051686" elapsed="0.000015"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${Deleted_Product}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:19.051980" elapsed="0.000025"/>
+</kw>
+<status status="NOT RUN" start="2024-12-27T10:53:19.051376" elapsed="0.000664"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:19.051358" elapsed="0.000708"/>
+</if>
+<arg>${INVALID_URL}</arg>
+<arg>${STATUS_NOT_FOUND}</arg>
+<arg>${PRODUCT_ID}</arg>
+<status status="PASS" start="2024-12-27T10:53:14.256417" elapsed="4.795698"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:19.052720" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:19.052648" elapsed="0.000180"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:19.052401" elapsed="0.000479"/>
+</kw>
+<doc>Verify that product can not delete</doc>
+<tag>1009</tag>
+<tag>DELETE</tag>
+<status status="PASS" start="2024-12-27T10:53:14.255102" elapsed="4.797885"/>
+</test>
+<test id="s1-t6" name="Test multiple scenarios of sorting" line="69">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:19.053962" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:19.053848" elapsed="0.000228"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:19.053657" elapsed="0.000466"/>
+</kw>
+<kw name="Get sort products" owner="FakeStoreAPIApp">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:19.369985" level="INFO">GET Request : url=https://fakestoreapi.com/products?sort=asc 
+ path_url=/products?sort=asc 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:19.370071" level="INFO">GET Response : url=https://fakestoreapi.com/products?sort=asc 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:44 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'etag': 'W/"297c-h+n6NsR3M51S6528jZo3BluzvtU"', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=onwB%2F2UiUvlIatX82nyUCaiLRIn5qQ3bxxu2yXXOE3%2Bj6qektnEqWQIwglPZBFC7r78l%2B2I50uMOdZjQa3u%2F4Cp4d4lv6rDtX%2FjHX7khxGx6QaXFhzWpB46NzZGLJQKd%2FvGiyHaaR5MBaCJ2yesc"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865d825e1bfdc8-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=28403&amp;min_rtt=27836&amp;rtt_var=10844&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2852&amp;recv_bytes=783&amp;delivery_rate=146572&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=4c47204ca8ba3c07&amp;ts=242&amp;x=0"'} 
+ body=[{"id":1,"title":"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops","price":109.95,"description":"Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday","category":"men's clothing","image":"https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg","rating":{"rate":3.9,"count":120}},{"id":2,"title":"Mens Casual Premium Slim Fit T-Shirts ","price":22.3,"description":"Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight &amp; soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.","category":"men's clothing","image":"https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg","rating":{"rate":4.1,"count":259}},{"id":3,"title":"Mens Cotton Jacket","price":55.99,"description":"great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.","category":"men's clothing","image":"https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg","rating":{"rate":4.7,"count":500}},{"id":4,"title":"Mens Casual Slim Fit","price":15.99,"description":"The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.","category":"men's clothing","image":"https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg","rating":{"rate":2.1,"count":430}},{"id":5,"title":"John Hardy Women's Legends Naga Gold &amp; Silver Dragon Station Chain Bracelet","price":695,"description":"From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.","category":"jewelery","image":"https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":4.6,"count":400}},{"id":6,"title":"Solid Gold Petite Micropave ","price":168,"description":"Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.","category":"jewelery","image":"https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":3.9,"count":70}},{"id":7,"title":"White Gold Plated Princess","price":9.99,"description":"Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...","category":"jewelery","image":"https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":3,"count":400}},{"id":8,"title":"Pierced Owl Rose Gold Plated Stainless Steel Double","price":10.99,"description":"Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel","category":"jewelery","image":"https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":1.9,"count":100}},{"id":9,"title":"WD 2TB Elements Portable External Hard Drive - USB 3.0 ","price":64,"description":"USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system","category":"electronics","image":"https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg","rating":{"rate":3.3,"count":203}},{"id":10,"title":"SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s","price":109,"description":"Easy upgrade for faster boot up, shutdown, application load and response (As compared to 5400 RPM SATA 2.5” hard drive; Based on published specifications and internal benchmarking tests using PCMark vantage scores) Boosts burst write performance, making it ideal for typical PC workloads The perfect balance of performance and reliability Read/write speeds of up to 535MB/s/450MB/s (Based on internal testing; Performance may vary depending upon drive capacity, host device, OS and application.)","category":"electronics","image":"https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg","rating":{"rate":2.9,"count":470}},{"id":11,"title":"Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5","price":109,"description":"3D NAND flash are applied to deliver high transfer speeds Remarkable transfer speeds that enable faster bootup and improved overall system performance. The advanced SLC Cache Technology allows performance boost and longer lifespan 7mm slim design suitable for Ultrabooks and Ultra-slim notebooks. Supports TRIM command, Garbage Collection technology, RAID, and ECC (Error Checking &amp; Correction) to provide the optimized performance and enhanced reliability.","category":"electronics","image":"https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg","rating":{"rate":4.8,"count":319}},{"id":12,"title":"WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive","price":114,"description":"Expand your PS4 gaming experience, Play anywhere Fast and easy, setup Sleek design with high capacity, 3-year manufacturer's limited warranty","category":"electronics","image":"https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg","rating":{"rate":4.8,"count":400}},{"id":13,"title":"Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin","price":599,"description":"21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz","category":"electronics","image":"https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg","rating":{"rate":2.9,"count":250}},{"id":14,"title":"Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ","price":999.99,"description":"49 INCH SUPER ULTRAWIDE 32:9 CURVED GAMING MONITOR with dual 27 inch screen side by side QUANTUM DOT (QLED) TECHNOLOGY, HDR support and factory calibration provides stunningly realistic and accurate color and contrast 144HZ HIGH REFRESH RATE and 1ms ultra fast response time work to eliminate motion blur, ghosting, and reduce input lag","category":"electronics","image":"https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg","rating":{"rate":2.2,"count":140}},{"id":15,"title":"BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats","price":56.99,"description":"Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and Warm.Stand Collar Liner jacket, keep you warm in cold weather. Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.Zippered Hand Pockets and Hidden Pocket keep your things secure. Humanized Design: Adjustable and Detachable Hood and Adjustable cuff to prevent the wind and water,for a comfortable fit. 3 in 1 Detachable Design provide more convenience, you can separate the coat and inner as needed, or wear it together. It is suitable for different season and help you adapt to different climates","category":"women's clothing","image":"https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg","rating":{"rate":2.6,"count":235}},{"id":16,"title":"Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket","price":29.95,"description":"100% POLYURETHANE(shell) 100% POLYESTER(lining) 75% POLYESTER 25% COTTON (SWEATER), Faux leather material for style and comfort / 2 pockets of front, 2-For-One Hooded denim style faux leather jacket, Button detail on waist / Detail stitching at sides, HAND WASH ONLY / DO NOT BLEACH / LINE DRY / DO NOT IRON","category":"women's clothing","image":"https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg","rating":{"rate":2.9,"count":340}},{"id":17,"title":"Rain Jacket Women Windbreaker Striped Climbing Raincoats","price":39.99,"description":"Lightweight perfet for trip or casual wear---Long sleeve with hooded, adjustable drawstring waist design. Button and zipper front closure raincoat, fully stripes Lined and The Raincoat has 2 side pockets are a good size to hold all kinds of things, it covers the hips, and the hood is generous but doesn't overdo it.Attached Cotton Lined Hood with Adjustable Drawstrings give it a real styled look.","category":"women's clothing","image":"https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg","rating":{"rate":3.8,"count":679}},{"id":18,"title":"MBJ Women's Solid Short Sleeve Boat Neck V ","price":9.85,"description":"95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight fabric with great stretch for comfort, Ribbed on sleeves and neckline / Double stitching on bottom hem","category":"women's clothing","image":"https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg","rating":{"rate":4.7,"count":130}},{"id":19,"title":"Opna Women's Short Sleeve Moisture","price":7.95,"description":"100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, ... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2024-12-27T10:53:19.370268" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:19.370445" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}${SORT_TYPE}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:19.054546" elapsed="0.315916"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-12-27T10:53:19.371265" level="INFO">${Sorted_Product} = [{'id': 1, 'title': 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops', 'price': 109.95, 'description': 'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 in...</msg>
+<var>${Sorted_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-12-27T10:53:19.370715" elapsed="0.000571"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:19.371557" level="INFO">[{'id': 1, 'title': 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops', 'price': 109.95, 'description': 'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg', 'rating': {'rate': 3.9, 'count': 120}}, {'id': 2, 'title': 'Mens Casual Premium Slim Fit T-Shirts ', 'price': 22.3, 'description': 'Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight &amp; soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg', 'rating': {'rate': 4.1, 'count': 259}}, {'id': 3, 'title': 'Mens Cotton Jacket', 'price': 55.99, 'description': 'great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg', 'rating': {'rate': 4.7, 'count': 500}}, {'id': 4, 'title': 'Mens Casual Slim Fit', 'price': 15.99, 'description': 'The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg', 'rating': {'rate': 2.1, 'count': 430}}, {'id': 5, 'title': "John Hardy Women's Legends Naga Gold &amp; Silver Dragon Station Chain Bracelet", 'price': 695, 'description': "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.", 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 4.6, 'count': 400}}, {'id': 6, 'title': 'Solid Gold Petite Micropave ', 'price': 168, 'description': 'Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.', 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 3.9, 'count': 70}}, {'id': 7, 'title': 'White Gold Plated Princess', 'price': 9.99, 'description': "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...", 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 3, 'count': 400}}, {'id': 8, 'title': 'Pierced Owl Rose Gold Plated Stainless Steel Double', 'price': 10.99, 'description': 'Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel', 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 1.9, 'count': 100}}, {'id': 9, 'title': 'WD 2TB Elements Portable External Hard Drive - USB 3.0 ', 'price': 64, 'description': 'USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg', 'rating': {'rate': 3.3, 'count': 203}}, {'id': 10, 'title': 'SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s', 'price': 109, 'description': 'Easy upgrade for faster boot up, shutdown, application load and response (As compared to 5400 RPM SATA 2.5” hard drive; Based on published specifications and internal benchmarking tests using PCMark vantage scores) Boosts burst write performance, making it ideal for typical PC workloads The perfect balance of performance and reliability Read/write speeds of up to 535MB/s/450MB/s (Based on internal testing; Performance may vary depending upon drive capacity, host device, OS and application.)', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg', 'rating': {'rate': 2.9, 'count': 470}}, {'id': 11, 'title': 'Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5', 'price': 109, 'description': '3D NAND flash are applied to deliver high transfer speeds Remarkable transfer speeds that enable faster bootup and improved overall system performance. The advanced SLC Cache Technology allows performance boost and longer lifespan 7mm slim design suitable for Ultrabooks and Ultra-slim notebooks. Supports TRIM command, Garbage Collection technology, RAID, and ECC (Error Checking &amp; Correction) to provide the optimized performance and enhanced reliability.', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg', 'rating': {'rate': 4.8, 'count': 319}}, {'id': 12, 'title': 'WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive', 'price': 114, 'description': "Expand your PS4 gaming experience, Play anywhere Fast and easy, setup Sleek design with high capacity, 3-year manufacturer's limited warranty", 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg', 'rating': {'rate': 4.8, 'count': 400}}, {'id': 13, 'title': 'Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin', 'price': 599, 'description': '21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg', 'rating': {'rate': 2.9, 'count': 250}}, {'id': 14, 'title': 'Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ', 'price': 999.99, 'description': '49 INCH SUPER ULTRAWIDE 32:9 CURVED GAMING MONITOR with dual 27 inch screen side by side QUANTUM DOT (QLED) TECHNOLOGY, HDR support and factory calibration provides stunningly realistic and accurate color and contrast 144HZ HIGH REFRESH RATE and 1ms ultra fast response time work to eliminate motion blur, ghosting, and reduce input lag', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg', 'rating': {'rate': 2.2, 'count': 140}}, {'id': 15, 'title': "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats", 'price': 56.99, 'description': 'Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and Warm.Stand Collar Liner jacket, keep you warm in cold weather. Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.Zippered Hand Pockets and Hidden Pocket keep your things secure. Humanized Design: Adjustable and Detachable Hood and Adjustable cuff to prevent the wind and water,for a comfortable fit. 3 in 1 Detachable Design provide more convenience, you can separate the coat and inner as needed, or wear it together. It is suitable for different season and help you adapt to different climates', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg', 'rating': {'rate': 2.6, 'count': 235}}, {'id': 16, 'title': "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket", 'price': 29.95, 'description': '100% POLYURETHANE(shell) 100% POLYESTER(lining) 75% POLYESTER 25% COTTON (SWEATER), Faux leather material for style and comfort / 2 pockets of front, 2-For-One Hooded denim style faux leather jacket, Button detail on waist / Detail stitching at sides, HAND WASH ONLY / DO NOT BLEACH / LINE DRY / DO NOT IRON', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg', 'rating': {'rate': 2.9, 'count': 340}}, {'id': 17, 'title': 'Rain Jacket Women Windbreaker Striped Climbing Raincoats', 'price': 39.99, 'description': "Lightweight perfet for trip or casual wear---Long sleeve with hooded, adjustable drawstring waist design. Button and zipper front closure raincoat, fully stripes Lined and The Raincoat has 2 side pockets are a good size to hold all kinds of things, it covers the hips, and the hood is generous but doesn't overdo it.Attached Cotton Lined Hood with Adjustable Drawstrings give it a real styled look.", 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg', 'rating': {'rate': 3.8, 'count': 679}}, {'id': 18, 'title': "MBJ Women's Solid Short Sleeve Boat Neck V ", 'price': 9.85, 'description': '95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight fabric with great stretch for comfort, Ribbed on sleeves and neckline / Double stitching on bottom hem', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg', 'rating': {'rate': 4.7, 'count': 130}}, {'id': 19, 'title': "Opna Women's Short Sleeve Moisture", 'price': 7.95, 'description': '100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg', 'rating': {'rate': 4.5, 'count': 146}}, {'id': 20, 'title': 'DANVOUY Womens T Shirt Casual Cotton Short', 'price': 12.99, 'description': '95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg', 'rating': {'rate': 3.6, 'count': 145}}]</msg>
+<arg>${Sorted_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:19.371378" elapsed="0.000291"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:19.370549" elapsed="0.001145"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:19.370532" elapsed="0.001183"/>
+</if>
+<arg>${URL}</arg>
+<arg>${STATUS_SUCCESS}</arg>
+<arg>${SORT_ASC}</arg>
+<status status="PASS" start="2024-12-27T10:53:19.054348" elapsed="0.317400"/>
+</kw>
+<kw name="Get sort products" owner="FakeStoreAPIApp">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:19.614298" level="INFO">GET Request : url=https://fakestoreapi.com/test/products?sort=asc 
+ path_url=/test/products?sort=asc 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:19.614362" level="INFO">GET Response : url=https://fakestoreapi.com/test/products?sort=asc 
+ status=404, reason=Not Found 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:44 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'content-security-policy': "default-src 'none'", 'x-content-type-options': 'nosniff', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=2tVKQnxP2YfA8td%2B9ANn9t2W%2F%2BL6QZKufApRMkqqweNoYDlqtoMuAoDHr2JQDUsGTxjF5l3e6OdXjmch8M%2FJnmAzT3sQp2LKuGndNry6WX1U%2FVOEu2Rf4rNghZOhB57E%2FtPcyL5Qw5AFFNFM8QtD"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865d83d919fdc8-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=28271&amp;min_rtt=27768&amp;rtt_var=6326&amp;sent=15&amp;recv=9&amp;lost=0&amp;retrans=0&amp;sent_bytes=8863&amp;recv_bytes=974&amp;delivery_rate=438426&amp;cwnd=256&amp;unsent_bytes=0&amp;cid=4c47204ca8ba3c07&amp;ts=485&amp;x=0"'} 
+ body=&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Error&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;pre&gt;Cannot GET /test/products&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+ 
+ </msg>
+<msg time="2024-12-27T10:53:19.614415" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:19.614590" level="INFO">${Response} = &lt;Response [404]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}${SORT_TYPE}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:19.372153" elapsed="0.242461"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${Sorted_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:19.614845" elapsed="0.000013"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${Sorted_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:19.614914" elapsed="0.000009"/>
+</kw>
+<status status="NOT RUN" start="2024-12-27T10:53:19.614691" elapsed="0.000248"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:19.614676" elapsed="0.000281"/>
+</if>
+<arg>${INVALID_URL}</arg>
+<arg>${STATUS_NOT_FOUND}</arg>
+<arg>${SORT_ASC}</arg>
+<status status="PASS" start="2024-12-27T10:53:19.371944" elapsed="0.243051"/>
+</kw>
+<kw name="Get sort products" owner="FakeStoreAPIApp">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:23.986414" level="INFO">GET Request : url=https://fakestoreapi.com/products?sort=desc 
+ path_url=/products?sort=desc 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:23.986551" level="INFO">GET Response : url=https://fakestoreapi.com/products?sort=desc 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:48 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'etag': 'W/"297c-kgtAqsPV+9MMR0dzy4sqhhSyR9Q"', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=fjm85sg%2FpAx%2BVf0rS6E9RO8RfLkCOz%2FHV60GjKkRfaLnI8MU4mrpVskpa4q22oY1%2BwwWrX5m6RqrIAZMF0pfd69ElECmmRLdyJlY3xCDYLlnJEp%2BS6nqpMji%2BMpG3fGg5jVuh5i1nEPzngpfWojc"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865d855c1afdc8-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=28232&amp;min_rtt=27768&amp;rtt_var=4823&amp;sent=18&amp;recv=11&amp;lost=0&amp;retrans=0&amp;sent_bytes=10044&amp;recv_bytes=1161&amp;delivery_rate=438426&amp;cwnd=256&amp;unsent_bytes=0&amp;cid=4c47204ca8ba3c07&amp;ts=4859&amp;x=0"'} 
+ body=[{"id":20,"title":"DANVOUY Womens T Shirt Casual Cotton Short","price":12.99,"description":"95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.","category":"women's clothing","image":"https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg","rating":{"rate":3.6,"count":145}},{"id":19,"title":"Opna Women's Short Sleeve Moisture","price":7.95,"description":"100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort","category":"women's clothing","image":"https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg","rating":{"rate":4.5,"count":146}},{"id":18,"title":"MBJ Women's Solid Short Sleeve Boat Neck V ","price":9.85,"description":"95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight fabric with great stretch for comfort, Ribbed on sleeves and neckline / Double stitching on bottom hem","category":"women's clothing","image":"https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg","rating":{"rate":4.7,"count":130}},{"id":17,"title":"Rain Jacket Women Windbreaker Striped Climbing Raincoats","price":39.99,"description":"Lightweight perfet for trip or casual wear---Long sleeve with hooded, adjustable drawstring waist design. Button and zipper front closure raincoat, fully stripes Lined and The Raincoat has 2 side pockets are a good size to hold all kinds of things, it covers the hips, and the hood is generous but doesn't overdo it.Attached Cotton Lined Hood with Adjustable Drawstrings give it a real styled look.","category":"women's clothing","image":"https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg","rating":{"rate":3.8,"count":679}},{"id":16,"title":"Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket","price":29.95,"description":"100% POLYURETHANE(shell) 100% POLYESTER(lining) 75% POLYESTER 25% COTTON (SWEATER), Faux leather material for style and comfort / 2 pockets of front, 2-For-One Hooded denim style faux leather jacket, Button detail on waist / Detail stitching at sides, HAND WASH ONLY / DO NOT BLEACH / LINE DRY / DO NOT IRON","category":"women's clothing","image":"https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg","rating":{"rate":2.9,"count":340}},{"id":15,"title":"BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats","price":56.99,"description":"Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and Warm.Stand Collar Liner jacket, keep you warm in cold weather. Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.Zippered Hand Pockets and Hidden Pocket keep your things secure. Humanized Design: Adjustable and Detachable Hood and Adjustable cuff to prevent the wind and water,for a comfortable fit. 3 in 1 Detachable Design provide more convenience, you can separate the coat and inner as needed, or wear it together. It is suitable for different season and help you adapt to different climates","category":"women's clothing","image":"https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg","rating":{"rate":2.6,"count":235}},{"id":14,"title":"Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ","price":999.99,"description":"49 INCH SUPER ULTRAWIDE 32:9 CURVED GAMING MONITOR with dual 27 inch screen side by side QUANTUM DOT (QLED) TECHNOLOGY, HDR support and factory calibration provides stunningly realistic and accurate color and contrast 144HZ HIGH REFRESH RATE and 1ms ultra fast response time work to eliminate motion blur, ghosting, and reduce input lag","category":"electronics","image":"https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg","rating":{"rate":2.2,"count":140}},{"id":13,"title":"Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin","price":599,"description":"21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz","category":"electronics","image":"https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg","rating":{"rate":2.9,"count":250}},{"id":12,"title":"WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive","price":114,"description":"Expand your PS4 gaming experience, Play anywhere Fast and easy, setup Sleek design with high capacity, 3-year manufacturer's limited warranty","category":"electronics","image":"https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg","rating":{"rate":4.8,"count":400}},{"id":11,"title":"Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5","price":109,"description":"3D NAND flash are applied to deliver high transfer speeds Remarkable transfer speeds that enable faster bootup and improved overall system performance. The advanced SLC Cache Technology allows performance boost and longer lifespan 7mm slim design suitable for Ultrabooks and Ultra-slim notebooks. Supports TRIM command, Garbage Collection technology, RAID, and ECC (Error Checking &amp; Correction) to provide the optimized performance and enhanced reliability.","category":"electronics","image":"https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg","rating":{"rate":4.8,"count":319}},{"id":10,"title":"SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s","price":109,"description":"Easy upgrade for faster boot up, shutdown, application load and response (As compared to 5400 RPM SATA 2.5” hard drive; Based on published specifications and internal benchmarking tests using PCMark vantage scores) Boosts burst write performance, making it ideal for typical PC workloads The perfect balance of performance and reliability Read/write speeds of up to 535MB/s/450MB/s (Based on internal testing; Performance may vary depending upon drive capacity, host device, OS and application.)","category":"electronics","image":"https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg","rating":{"rate":2.9,"count":470}},{"id":9,"title":"WD 2TB Elements Portable External Hard Drive - USB 3.0 ","price":64,"description":"USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system","category":"electronics","image":"https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg","rating":{"rate":3.3,"count":203}},{"id":8,"title":"Pierced Owl Rose Gold Plated Stainless Steel Double","price":10.99,"description":"Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel","category":"jewelery","image":"https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":1.9,"count":100}},{"id":7,"title":"White Gold Plated Princess","price":9.99,"description":"Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...","category":"jewelery","image":"https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":3,"count":400}},{"id":6,"title":"Solid Gold Petite Micropave ","price":168,"description":"Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.","category":"jewelery","image":"https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":3.9,"count":70}},{"id":5,"title":"John Hardy Women's Legends Naga Gold &amp; Silver Dragon Station Chain Bracelet","price":695,"description":"From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.","category":"jewelery","image":"https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":4.6,"count":400}},{"id":4,"title":"Mens Casual Slim Fit","price":15.99,"description":"The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.","category":"men's clothing","image":"https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg","rating":{"rate":2.1,"count":430}},{"id":3,"title":"Mens Cotton Jacket","price":55.99,"description":"great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.","category":"men's clothing","image":"https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg","rating":{"rate":4.7,"count":500}},{"id":2,"title":"Mens Casual Premium Slim Fit T-Shirts ","price":22.3,"description":"Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight &amp; soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fa... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2024-12-27T10:53:23.986776" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:23.986996" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}${SORT_TYPE}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:19.615373" elapsed="4.371703"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-12-27T10:53:23.988766" level="INFO">${Sorted_Product} = [{'id': 20, 'title': 'DANVOUY Womens T Shirt Casual Cotton Short', 'price': 12.99, 'description': '95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is ...</msg>
+<var>${Sorted_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-12-27T10:53:23.988021" elapsed="0.000764"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:23.989049" level="INFO">[{'id': 20, 'title': 'DANVOUY Womens T Shirt Casual Cotton Short', 'price': 12.99, 'description': '95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg', 'rating': {'rate': 3.6, 'count': 145}}, {'id': 19, 'title': "Opna Women's Short Sleeve Moisture", 'price': 7.95, 'description': '100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg', 'rating': {'rate': 4.5, 'count': 146}}, {'id': 18, 'title': "MBJ Women's Solid Short Sleeve Boat Neck V ", 'price': 9.85, 'description': '95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight fabric with great stretch for comfort, Ribbed on sleeves and neckline / Double stitching on bottom hem', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg', 'rating': {'rate': 4.7, 'count': 130}}, {'id': 17, 'title': 'Rain Jacket Women Windbreaker Striped Climbing Raincoats', 'price': 39.99, 'description': "Lightweight perfet for trip or casual wear---Long sleeve with hooded, adjustable drawstring waist design. Button and zipper front closure raincoat, fully stripes Lined and The Raincoat has 2 side pockets are a good size to hold all kinds of things, it covers the hips, and the hood is generous but doesn't overdo it.Attached Cotton Lined Hood with Adjustable Drawstrings give it a real styled look.", 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg', 'rating': {'rate': 3.8, 'count': 679}}, {'id': 16, 'title': "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket", 'price': 29.95, 'description': '100% POLYURETHANE(shell) 100% POLYESTER(lining) 75% POLYESTER 25% COTTON (SWEATER), Faux leather material for style and comfort / 2 pockets of front, 2-For-One Hooded denim style faux leather jacket, Button detail on waist / Detail stitching at sides, HAND WASH ONLY / DO NOT BLEACH / LINE DRY / DO NOT IRON', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg', 'rating': {'rate': 2.9, 'count': 340}}, {'id': 15, 'title': "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats", 'price': 56.99, 'description': 'Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and Warm.Stand Collar Liner jacket, keep you warm in cold weather. Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.Zippered Hand Pockets and Hidden Pocket keep your things secure. Humanized Design: Adjustable and Detachable Hood and Adjustable cuff to prevent the wind and water,for a comfortable fit. 3 in 1 Detachable Design provide more convenience, you can separate the coat and inner as needed, or wear it together. It is suitable for different season and help you adapt to different climates', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg', 'rating': {'rate': 2.6, 'count': 235}}, {'id': 14, 'title': 'Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ', 'price': 999.99, 'description': '49 INCH SUPER ULTRAWIDE 32:9 CURVED GAMING MONITOR with dual 27 inch screen side by side QUANTUM DOT (QLED) TECHNOLOGY, HDR support and factory calibration provides stunningly realistic and accurate color and contrast 144HZ HIGH REFRESH RATE and 1ms ultra fast response time work to eliminate motion blur, ghosting, and reduce input lag', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg', 'rating': {'rate': 2.2, 'count': 140}}, {'id': 13, 'title': 'Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin', 'price': 599, 'description': '21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg', 'rating': {'rate': 2.9, 'count': 250}}, {'id': 12, 'title': 'WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive', 'price': 114, 'description': "Expand your PS4 gaming experience, Play anywhere Fast and easy, setup Sleek design with high capacity, 3-year manufacturer's limited warranty", 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg', 'rating': {'rate': 4.8, 'count': 400}}, {'id': 11, 'title': 'Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5', 'price': 109, 'description': '3D NAND flash are applied to deliver high transfer speeds Remarkable transfer speeds that enable faster bootup and improved overall system performance. The advanced SLC Cache Technology allows performance boost and longer lifespan 7mm slim design suitable for Ultrabooks and Ultra-slim notebooks. Supports TRIM command, Garbage Collection technology, RAID, and ECC (Error Checking &amp; Correction) to provide the optimized performance and enhanced reliability.', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg', 'rating': {'rate': 4.8, 'count': 319}}, {'id': 10, 'title': 'SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s', 'price': 109, 'description': 'Easy upgrade for faster boot up, shutdown, application load and response (As compared to 5400 RPM SATA 2.5” hard drive; Based on published specifications and internal benchmarking tests using PCMark vantage scores) Boosts burst write performance, making it ideal for typical PC workloads The perfect balance of performance and reliability Read/write speeds of up to 535MB/s/450MB/s (Based on internal testing; Performance may vary depending upon drive capacity, host device, OS and application.)', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg', 'rating': {'rate': 2.9, 'count': 470}}, {'id': 9, 'title': 'WD 2TB Elements Portable External Hard Drive - USB 3.0 ', 'price': 64, 'description': 'USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg', 'rating': {'rate': 3.3, 'count': 203}}, {'id': 8, 'title': 'Pierced Owl Rose Gold Plated Stainless Steel Double', 'price': 10.99, 'description': 'Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel', 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 1.9, 'count': 100}}, {'id': 7, 'title': 'White Gold Plated Princess', 'price': 9.99, 'description': "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...", 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 3, 'count': 400}}, {'id': 6, 'title': 'Solid Gold Petite Micropave ', 'price': 168, 'description': 'Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.', 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 3.9, 'count': 70}}, {'id': 5, 'title': "John Hardy Women's Legends Naga Gold &amp; Silver Dragon Station Chain Bracelet", 'price': 695, 'description': "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.", 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 4.6, 'count': 400}}, {'id': 4, 'title': 'Mens Casual Slim Fit', 'price': 15.99, 'description': 'The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg', 'rating': {'rate': 2.1, 'count': 430}}, {'id': 3, 'title': 'Mens Cotton Jacket', 'price': 55.99, 'description': 'great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg', 'rating': {'rate': 4.7, 'count': 500}}, {'id': 2, 'title': 'Mens Casual Premium Slim Fit T-Shirts ', 'price': 22.3, 'description': 'Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight &amp; soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg', 'rating': {'rate': 4.1, 'count': 259}}, {'id': 1, 'title': 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops', 'price': 109.95, 'description': 'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg', 'rating': {'rate': 3.9, 'count': 120}}]</msg>
+<arg>${Sorted_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:23.988875" elapsed="0.000326"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:23.987380" elapsed="0.001848"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:23.987320" elapsed="0.001928"/>
+</if>
+<arg>${URL}</arg>
+<arg>${STATUS_SUCCESS}</arg>
+<arg>${SORT_DESC}</arg>
+<status status="PASS" start="2024-12-27T10:53:19.615185" elapsed="4.374099"/>
+</kw>
+<kw name="Get sort products" owner="FakeStoreAPIApp">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:24.313264" level="INFO">GET Request : url=https://fakestoreapi.com/test/products?sort=desc 
+ path_url=/test/products?sort=desc 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:24.313330" level="INFO">GET Response : url=https://fakestoreapi.com/test/products?sort=desc 
+ status=404, reason=Not Found 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:49 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'content-security-policy': "default-src 'none'", 'x-content-type-options': 'nosniff', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=ZxF6SSxD5QpCrRG4NrrPRMOLuGh5ssc%2BJfCmkGUYpyzx50pAbcDd%2B2LZBRf2c%2BqqFM%2Fe0m%2BqPCbphsBhRltHnJwnwZ8DDr0aXfU6mPpnl5HK0bFHIiT3X7c3jRiLaAa2KxYLARGjFM1BVc7Oa7xq"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865da0b9a7fdc8-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=28066&amp;min_rtt=27690&amp;rtt_var=2287&amp;sent=27&amp;recv=15&amp;lost=0&amp;retrans=0&amp;sent_bytes=15583&amp;recv_bytes=1353&amp;delivery_rate=438426&amp;cwnd=256&amp;unsent_bytes=0&amp;cid=4c47204ca8ba3c07&amp;ts=5186&amp;x=0"'} 
+ body=&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Error&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;pre&gt;Cannot GET /test/products&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+ 
+ </msg>
+<msg time="2024-12-27T10:53:24.313383" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:24.313711" level="INFO">${Response} = &lt;Response [404]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}${SORT_TYPE}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:23.989709" elapsed="0.324040"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${Sorted_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:24.314090" elapsed="0.000017"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${Sorted_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:24.314194" elapsed="0.000010"/>
+</kw>
+<status status="NOT RUN" start="2024-12-27T10:53:24.313862" elapsed="0.000364"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:24.313839" elapsed="0.000405"/>
+</if>
+<arg>${INVALID_URL}</arg>
+<arg>${STATUS_NOT_FOUND}</arg>
+<arg>${SORT_DESC}</arg>
+<status status="PASS" start="2024-12-27T10:53:23.989492" elapsed="0.324791"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:24.314763" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:24.314719" elapsed="0.000087"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:24.314563" elapsed="0.000274"/>
+</kw>
+<doc>...</doc>
+<tag>1012</tag>
+<tag>GET</tag>
+<tag>SORT</tag>
+<status status="PASS" start="2024-12-27T10:53:19.053310" elapsed="5.261582"/>
+</test>
+<test id="s1-t7" name="Should not be able to edit product information" line="39">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:24.315478" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:24.315397" elapsed="0.000162"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:24.315286" elapsed="0.000307"/>
+</kw>
+<kw name="Edit product information" owner="FakeStoreAPIApp">
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:24.663850" level="INFO">PUT Request : url=https://fakestoreapi.com/test/products/19 
+ path_url=/test/products/19 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '95', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=title=Update&amp;price=100.99&amp;description=abc&amp;category=jewelery&amp;image=https%3A%2F%2Fwww.youtube.com 
+ </msg>
+<msg time="2024-12-27T10:53:24.664193" level="INFO">PUT Response : url=https://fakestoreapi.com/test/products/19 
+ status=404, reason=Not Found 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:49 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'content-security-policy': "default-src 'none'", 'x-content-type-options': 'nosniff', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=ngurCFI1lvnbAYqsxcfuoaZ36VpQwQ1%2BudvE3dwYN4z80jU9WdRVQ2iNMEARTlPvuNGwXVcf0ZIM%2FckiJ44kLF4QZz2TKTj5NP7H2R8%2ByVStf8PdY8Rcli2sLjyuuaVF02QY7bIBK%2F%2F9Ths9p4JN"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865da33e90fdc5-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=29386&amp;min_rtt=28725&amp;rtt_var=11244&amp;sent=6&amp;recv=7&amp;lost=0&amp;retrans=0&amp;sent_bytes=2853&amp;recv_bytes=968&amp;delivery_rate=142036&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=7c4b77a93bba5091&amp;ts=272&amp;x=0"'} 
+ body=&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Error&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;pre&gt;Cannot PUT /test/products/19&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+ 
+ </msg>
+<msg time="2024-12-27T10:53:24.664424" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:24.664678" level="INFO">${Response} = &lt;Response [404]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}/${PRODUCT_ID}</arg>
+<arg>${EDIT_PRODUCT}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:24.315946" elapsed="0.348772"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${Edited_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:24.665738" elapsed="0.000197"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${Edited_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:24.666764" elapsed="0.000267"/>
+</kw>
+<status status="NOT RUN" start="2024-12-27T10:53:24.664915" elapsed="0.002412"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:24.664889" elapsed="0.002544"/>
+</if>
+<arg>${INVALID_URL}</arg>
+<arg>${STATUS_NOT_FOUND}</arg>
+<status status="PASS" start="2024-12-27T10:53:24.315773" elapsed="0.351970"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:24.669377" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:24.669210" elapsed="0.000300"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:24.668611" elapsed="0.001015"/>
+</kw>
+<doc>Verify that product can not edit</doc>
+<tag>1006</tag>
+<tag>PUT</tag>
+<status status="PASS" start="2024-12-27T10:53:24.315077" elapsed="0.354770"/>
+</test>
+<test id="s1-t8" name="Should not be able to add new product" line="29">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:24.673100" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:24.672634" elapsed="0.000746"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:24.671906" elapsed="0.001610"/>
+</kw>
+<kw name="Add new product to FakeStore" owner="FakeStoreAPIApp">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:29.157048" level="INFO">POST Request : url=https://fakestoreapi.com/test/products 
+ path_url=/test/products 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '112', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=title=Snow+Fuji&amp;price=53.99&amp;description=Hello+World&amp;category=men%27s+clothing&amp;image=https%3A%2F%2Fwww.google.com 
+ </msg>
+<msg time="2024-12-27T10:53:29.157117" level="INFO">POST Response : url=https://fakestoreapi.com/test/products 
+ status=404, reason=Not Found 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:54 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'content-security-policy': "default-src 'none'", 'x-content-type-options': 'nosniff', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=M4wAnZ1qbttKyewLSYoEww%2BPt0Eq1wMTM0h4Dhr3kttGd4X1ean%2BJiFgWF1FwYrtfJE1a8vrGYqwvGudCd7%2B3vMJ9EJKLaLmXV5EznGV%2B0Wk8hV%2FNmD0BoxEW%2F7mEkp4YdsOWH9bvuB3qT7jbsN6"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865da50fb47991-BKK', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=4669&amp;min_rtt=4019&amp;rtt_var=1971&amp;sent=6&amp;recv=7&amp;lost=0&amp;retrans=0&amp;sent_bytes=2853&amp;recv_bytes=984&amp;delivery_rate=1015177&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=02d855cb81d6588b&amp;ts=4460&amp;x=0"'} 
+ body=&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Error&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;pre&gt;Cannot POST /test/products&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+ 
+ </msg>
+<msg time="2024-12-27T10:53:29.157207" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:29.157755" level="INFO">${Response} = &lt;Response [404]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}</arg>
+<arg>${NEW_PRODUCT}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:24.674169" elapsed="4.483641"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${Created_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:29.158566" elapsed="0.000048"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${Created_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:29.158881" elapsed="0.000045"/>
+</kw>
+<status status="NOT RUN" start="2024-12-27T10:53:29.157995" elapsed="0.001041"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:29.157959" elapsed="0.001130"/>
+</if>
+<arg>${INVALID_URL}</arg>
+<arg>${STATUS_NOT_FOUND}</arg>
+<status status="PASS" start="2024-12-27T10:53:24.673933" elapsed="4.485238"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:29.160053" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:29.159975" elapsed="0.000150"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:29.159691" elapsed="0.000488"/>
+</kw>
+<doc>Verify that product has not added</doc>
+<tag>1004</tag>
+<tag>POST</tag>
+<status status="PASS" start="2024-12-27T10:53:24.670685" elapsed="4.489600"/>
+</test>
+<test id="s1-t9" name="Should be able to get product categories" line="59">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:29.161272" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:29.161129" elapsed="0.000263"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:29.160912" elapsed="0.000574"/>
+</kw>
+<kw name="Get product categories" owner="FakeStoreAPIApp">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:29.552419" level="INFO">GET Request : url=https://fakestoreapi.com/products/categories 
+ path_url=/products/categories 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:29.552673" level="INFO">GET Response : url=https://fakestoreapi.com/products/categories 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:54 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'etag': 'W/"3e-cdq81BKoKIRIQmboBVN84Vj+vkM"', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=ityfCTc5DUEC2EXKRiKVjWCpT%2BLINDn3VXpd3coG39wqlD%2FXQtmOfTk%2B0UIhCANG7haIzEkzA5ExoutEqWmXmGt9uK%2FZBIjONqhk1Nucfx1Y%2B4tv%2B8rFaZ5HGKUoaYL3jWmqS8Vh5ThM5tJ0XIOD"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865dc1182e1d2f-BKK', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=4391&amp;min_rtt=3930&amp;rtt_var=1803&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2852&amp;recv_bytes=785&amp;delivery_rate=1038167&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=b299f47afdcc6066&amp;ts=363&amp;x=0"'} 
+ body=["electronics","jewelery","men's clothing","women's clothing"] 
+ </msg>
+<msg time="2024-12-27T10:53:29.552981" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:29.553717" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}${CATEGORY_PATH}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:29.161993" elapsed="0.391867"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-12-27T10:53:29.556246" level="INFO">${Categories} = ['electronics', 'jewelery', "men's clothing", "women's clothing"]</msg>
+<var>${Categories}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-12-27T10:53:29.554849" elapsed="0.001458"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:29.556807" level="INFO">['electronics', 'jewelery', "men's clothing", "women's clothing"]</msg>
+<arg>${Categories}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:29.556562" elapsed="0.000318"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:29.554196" elapsed="0.002746"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:29.554128" elapsed="0.002864"/>
+</if>
+<arg>${URL}</arg>
+<arg>${STATUS_SUCCESS}</arg>
+<status status="PASS" start="2024-12-27T10:53:29.161712" elapsed="0.395361"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:29.558389" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:29.558285" elapsed="0.000193"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:29.557899" elapsed="0.000660"/>
+</kw>
+<doc>Verify that product categories have retrieved successfully</doc>
+<tag>1010</tag>
+<tag>GET</tag>
+<status status="PASS" start="2024-12-27T10:53:29.160578" elapsed="0.398180"/>
+</test>
+<test id="s1-t10" name="Should be able to delete product" line="44">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:29.560423" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:29.560264" elapsed="0.000311"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:29.560012" elapsed="0.000629"/>
+</kw>
+<kw name="Delete product from FakeStore" owner="FakeStoreAPIApp">
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:34.193341" level="INFO">DELETE Request : url=https://fakestoreapi.com/products/19 
+ path_url=/products/19 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:34.193536" level="INFO">DELETE Response : url=https://fakestoreapi.com/products/19 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:59 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'etag': 'W/"231-+GdJpsl9ZggA7anIClZxES/5GQk"', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=4ZduffujAewakAOlODhKfcKjbPgWy%2BLKPIlRGqfIKfGwPtl19z7%2FvpW%2F1ucmZtn0YJyfLKBjWkhsT6FnlSt0r2u0EKdqfBZ9rLC0OxQjx3MS4jCv%2F2%2Bh0QX28stYv3R7AIenPquG0V4aFP27%2FxtM"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865dc409b53dea-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=28917&amp;min_rtt=28322&amp;rtt_var=11045&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2853&amp;recv_bytes=799&amp;delivery_rate=144057&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=ab5902e5860c929b&amp;ts=4558&amp;x=0"'} 
+ body={"id":19,"title":"Opna Women's Short Sleeve Moisture","price":7.95,"description":"100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort","category":"women's clothing","image":"https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg","rating":{"rate":4.5,"count":146}} 
+ </msg>
+<msg time="2024-12-27T10:53:34.193716" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:34.194279" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}/${PRODUCT_ID}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:29.561143" elapsed="4.633216"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:34.195240" level="INFO">19</msg>
+<arg>${PRODUCT_ID}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.194653" elapsed="0.000722"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-12-27T10:53:34.197067" level="INFO">${Deleted_Product} = {'id': 19, 'title': "Opna Women's Short Sleeve Moisture", 'price': 7.95, 'description': '100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lig...</msg>
+<var>${Deleted_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.196310" elapsed="0.000797"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:34.197448" level="INFO">{'id': 19, 'title': "Opna Women's Short Sleeve Moisture", 'price': 7.95, 'description': '100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg', 'rating': {'rate': 4.5, 'count': 146}}</msg>
+<arg>${Deleted_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.197269" elapsed="0.000242"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${Deleted_Product}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.197643" elapsed="0.000152"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:34.195620" elapsed="0.002282"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:34.195566" elapsed="0.002372"/>
+</if>
+<arg>${URL}</arg>
+<arg>${STATUS_SUCCESS}</arg>
+<arg>${PRODUCT_ID}</arg>
+<status status="PASS" start="2024-12-27T10:53:29.560879" elapsed="4.637119"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:34.198652" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:34.198585" elapsed="0.000130"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:34.198339" elapsed="0.000426"/>
+</kw>
+<doc>Verify that product has been deleted</doc>
+<tag>1007</tag>
+<tag>DELETE</tag>
+<status status="PASS" start="2024-12-27T10:53:29.559443" elapsed="4.639409"/>
+</test>
+<test id="s1-t11" name="Should be able to edit product information" line="34">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:34.199949" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:34.199831" elapsed="0.000241"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:34.199648" elapsed="0.000481"/>
+</kw>
+<kw name="Edit product information" owner="FakeStoreAPIApp">
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:34.532123" level="INFO">PUT Request : url=https://fakestoreapi.com/products/19 
+ path_url=/products/19 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '95', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=title=Update&amp;price=100.99&amp;description=abc&amp;category=jewelery&amp;image=https%3A%2F%2Fwww.youtube.com 
+ </msg>
+<msg time="2024-12-27T10:53:34.532225" level="INFO">PUT Response : url=https://fakestoreapi.com/products/19 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:59 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'etag': 'W/"77-oV25pUJQlpyY2KUG24wkXWwagqs"', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=0OnRS4COVUg22wknMX7uS3X5QvX7dnlUGlCcf0sR70EYrvmDy0O4CR%2FmV5ULVqhWtkeqFW%2FA8ipkMuVMddNvQa7VvzzD2%2FDlWoxnmkkc8%2B4wxvFnYRnTG9JlwUpaH%2FYdrO5GC9JYzdTKxjKIE5ST"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865de10e9c3e1e-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=28843&amp;min_rtt=28109&amp;rtt_var=11065&amp;sent=6&amp;recv=7&amp;lost=0&amp;retrans=0&amp;sent_bytes=2853&amp;recv_bytes=963&amp;delivery_rate=145149&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=dc70ed724bfdfe74&amp;ts=255&amp;x=0"'} 
+ body={"id":19,"title":"Update","price":"100.99","description":"abc","image":"https://www.youtube.com","category":"jewelery"} 
+ </msg>
+<msg time="2024-12-27T10:53:34.532293" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:34.532568" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}/${PRODUCT_ID}</arg>
+<arg>${EDIT_PRODUCT}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.200579" elapsed="0.332039"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-12-27T10:53:34.535762" level="INFO">${Edited_Product} = {'id': 19, 'title': 'Update', 'price': '100.99', 'description': 'abc', 'image': 'https://www.youtube.com', 'category': 'jewelery'}</msg>
+<var>${Edited_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.535319" elapsed="0.000465"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:34.535979" level="INFO">{'id': 19, 'title': 'Update', 'price': '100.99', 'description': 'abc', 'image': 'https://www.youtube.com', 'category': 'jewelery'}</msg>
+<arg>${Edited_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.535883" elapsed="0.000124"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:34.532729" elapsed="0.003301"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:34.532706" elapsed="0.003346"/>
+</if>
+<arg>${URL}</arg>
+<arg>${STATUS_SUCCESS}</arg>
+<status status="PASS" start="2024-12-27T10:53:34.200338" elapsed="0.335749"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:34.536497" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:34.536456" elapsed="0.000075"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:34.536309" elapsed="0.000251"/>
+</kw>
+<doc>Verify that product can edit</doc>
+<tag>1005</tag>
+<tag>PUT</tag>
+<status status="PASS" start="2024-12-27T10:53:34.199269" elapsed="0.337340"/>
+</test>
+<test id="s1-t12" name="Should be able to get all product" line="14">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:34.537358" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:34.537279" elapsed="0.000158"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:34.537154" elapsed="0.000316"/>
+</kw>
+<kw name="Get all product from FakeStore" owner="FakeStoreAPIApp">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:34.870673" level="INFO">GET Request : url=https://fakestoreapi.com/products 
+ path_url=/products 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:34.870893" level="INFO">GET Response : url=https://fakestoreapi.com/products 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 27 Dec 2024 03:53:59 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'etag': 'W/"297c-h+n6NsR3M51S6528jZo3BluzvtU"', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=0nFpmD9lEA92X0rqYV8sQK0mJZnl4KvrZhTpGqNkut2WV%2FM2dvmcbry4A0uX7A0SJ1fCYjsJTELdKZzW8oul5vjA93T3naIJ31HzZw2b5Rz2cVv2DGoxLpbZ77od7pp5NFRTNcSwnOI0exEhPQgf"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865de31d104490-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=27928&amp;min_rtt=27554&amp;rtt_var=10600&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2854&amp;recv_bytes=774&amp;delivery_rate=148072&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=fd141178cb923bc4&amp;ts=262&amp;x=0"'} 
+ body=[{"id":1,"title":"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops","price":109.95,"description":"Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday","category":"men's clothing","image":"https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg","rating":{"rate":3.9,"count":120}},{"id":2,"title":"Mens Casual Premium Slim Fit T-Shirts ","price":22.3,"description":"Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight &amp; soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.","category":"men's clothing","image":"https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg","rating":{"rate":4.1,"count":259}},{"id":3,"title":"Mens Cotton Jacket","price":55.99,"description":"great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.","category":"men's clothing","image":"https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg","rating":{"rate":4.7,"count":500}},{"id":4,"title":"Mens Casual Slim Fit","price":15.99,"description":"The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.","category":"men's clothing","image":"https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg","rating":{"rate":2.1,"count":430}},{"id":5,"title":"John Hardy Women's Legends Naga Gold &amp; Silver Dragon Station Chain Bracelet","price":695,"description":"From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.","category":"jewelery","image":"https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":4.6,"count":400}},{"id":6,"title":"Solid Gold Petite Micropave ","price":168,"description":"Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.","category":"jewelery","image":"https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":3.9,"count":70}},{"id":7,"title":"White Gold Plated Princess","price":9.99,"description":"Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...","category":"jewelery","image":"https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":3,"count":400}},{"id":8,"title":"Pierced Owl Rose Gold Plated Stainless Steel Double","price":10.99,"description":"Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel","category":"jewelery","image":"https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg","rating":{"rate":1.9,"count":100}},{"id":9,"title":"WD 2TB Elements Portable External Hard Drive - USB 3.0 ","price":64,"description":"USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system","category":"electronics","image":"https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg","rating":{"rate":3.3,"count":203}},{"id":10,"title":"SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s","price":109,"description":"Easy upgrade for faster boot up, shutdown, application load and response (As compared to 5400 RPM SATA 2.5” hard drive; Based on published specifications and internal benchmarking tests using PCMark vantage scores) Boosts burst write performance, making it ideal for typical PC workloads The perfect balance of performance and reliability Read/write speeds of up to 535MB/s/450MB/s (Based on internal testing; Performance may vary depending upon drive capacity, host device, OS and application.)","category":"electronics","image":"https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg","rating":{"rate":2.9,"count":470}},{"id":11,"title":"Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5","price":109,"description":"3D NAND flash are applied to deliver high transfer speeds Remarkable transfer speeds that enable faster bootup and improved overall system performance. The advanced SLC Cache Technology allows performance boost and longer lifespan 7mm slim design suitable for Ultrabooks and Ultra-slim notebooks. Supports TRIM command, Garbage Collection technology, RAID, and ECC (Error Checking &amp; Correction) to provide the optimized performance and enhanced reliability.","category":"electronics","image":"https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg","rating":{"rate":4.8,"count":319}},{"id":12,"title":"WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive","price":114,"description":"Expand your PS4 gaming experience, Play anywhere Fast and easy, setup Sleek design with high capacity, 3-year manufacturer's limited warranty","category":"electronics","image":"https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg","rating":{"rate":4.8,"count":400}},{"id":13,"title":"Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin","price":599,"description":"21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz","category":"electronics","image":"https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg","rating":{"rate":2.9,"count":250}},{"id":14,"title":"Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ","price":999.99,"description":"49 INCH SUPER ULTRAWIDE 32:9 CURVED GAMING MONITOR with dual 27 inch screen side by side QUANTUM DOT (QLED) TECHNOLOGY, HDR support and factory calibration provides stunningly realistic and accurate color and contrast 144HZ HIGH REFRESH RATE and 1ms ultra fast response time work to eliminate motion blur, ghosting, and reduce input lag","category":"electronics","image":"https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg","rating":{"rate":2.2,"count":140}},{"id":15,"title":"BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats","price":56.99,"description":"Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and Warm.Stand Collar Liner jacket, keep you warm in cold weather. Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.Zippered Hand Pockets and Hidden Pocket keep your things secure. Humanized Design: Adjustable and Detachable Hood and Adjustable cuff to prevent the wind and water,for a comfortable fit. 3 in 1 Detachable Design provide more convenience, you can separate the coat and inner as needed, or wear it together. It is suitable for different season and help you adapt to different climates","category":"women's clothing","image":"https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg","rating":{"rate":2.6,"count":235}},{"id":16,"title":"Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket","price":29.95,"description":"100% POLYURETHANE(shell) 100% POLYESTER(lining) 75% POLYESTER 25% COTTON (SWEATER), Faux leather material for style and comfort / 2 pockets of front, 2-For-One Hooded denim style faux leather jacket, Button detail on waist / Detail stitching at sides, HAND WASH ONLY / DO NOT BLEACH / LINE DRY / DO NOT IRON","category":"women's clothing","image":"https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg","rating":{"rate":2.9,"count":340}},{"id":17,"title":"Rain Jacket Women Windbreaker Striped Climbing Raincoats","price":39.99,"description":"Lightweight perfet for trip or casual wear---Long sleeve with hooded, adjustable drawstring waist design. Button and zipper front closure raincoat, fully stripes Lined and The Raincoat has 2 side pockets are a good size to hold all kinds of things, it covers the hips, and the hood is generous but doesn't overdo it.Attached Cotton Lined Hood with Adjustable Drawstrings give it a real styled look.","category":"women's clothing","image":"https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg","rating":{"rate":3.8,"count":679}},{"id":18,"title":"MBJ Women's Solid Short Sleeve Boat Neck V ","price":9.85,"description":"95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight fabric with great stretch for comfort, Ribbed on sleeves and neckline / Double stitching on bottom hem","category":"women's clothing","image":"https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg","rating":{"rate":4.7,"count":130}},{"id":19,"title":"Opna Women's Short Sleeve Moisture","price":7.95,"description":"100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, ... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2024-12-27T10:53:34.871325" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:34.871774" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.537736" elapsed="0.334119"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-12-27T10:53:34.873235" level="INFO">${All_Product} = [{'id': 1, 'title': 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops', 'price': 109.95, 'description': 'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 in...</msg>
+<var>${All_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.872462" elapsed="0.000813"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:34.873886" level="INFO">[{'id': 1, 'title': 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops', 'price': 109.95, 'description': 'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg', 'rating': {'rate': 3.9, 'count': 120}}, {'id': 2, 'title': 'Mens Casual Premium Slim Fit T-Shirts ', 'price': 22.3, 'description': 'Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight &amp; soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg', 'rating': {'rate': 4.1, 'count': 259}}, {'id': 3, 'title': 'Mens Cotton Jacket', 'price': 55.99, 'description': 'great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg', 'rating': {'rate': 4.7, 'count': 500}}, {'id': 4, 'title': 'Mens Casual Slim Fit', 'price': 15.99, 'description': 'The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.', 'category': "men's clothing", 'image': 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg', 'rating': {'rate': 2.1, 'count': 430}}, {'id': 5, 'title': "John Hardy Women's Legends Naga Gold &amp; Silver Dragon Station Chain Bracelet", 'price': 695, 'description': "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.", 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 4.6, 'count': 400}}, {'id': 6, 'title': 'Solid Gold Petite Micropave ', 'price': 168, 'description': 'Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.', 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 3.9, 'count': 70}}, {'id': 7, 'title': 'White Gold Plated Princess', 'price': 9.99, 'description': "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...", 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 3, 'count': 400}}, {'id': 8, 'title': 'Pierced Owl Rose Gold Plated Stainless Steel Double', 'price': 10.99, 'description': 'Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel', 'category': 'jewelery', 'image': 'https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg', 'rating': {'rate': 1.9, 'count': 100}}, {'id': 9, 'title': 'WD 2TB Elements Portable External Hard Drive - USB 3.0 ', 'price': 64, 'description': 'USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg', 'rating': {'rate': 3.3, 'count': 203}}, {'id': 10, 'title': 'SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s', 'price': 109, 'description': 'Easy upgrade for faster boot up, shutdown, application load and response (As compared to 5400 RPM SATA 2.5” hard drive; Based on published specifications and internal benchmarking tests using PCMark vantage scores) Boosts burst write performance, making it ideal for typical PC workloads The perfect balance of performance and reliability Read/write speeds of up to 535MB/s/450MB/s (Based on internal testing; Performance may vary depending upon drive capacity, host device, OS and application.)', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg', 'rating': {'rate': 2.9, 'count': 470}}, {'id': 11, 'title': 'Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5', 'price': 109, 'description': '3D NAND flash are applied to deliver high transfer speeds Remarkable transfer speeds that enable faster bootup and improved overall system performance. The advanced SLC Cache Technology allows performance boost and longer lifespan 7mm slim design suitable for Ultrabooks and Ultra-slim notebooks. Supports TRIM command, Garbage Collection technology, RAID, and ECC (Error Checking &amp; Correction) to provide the optimized performance and enhanced reliability.', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg', 'rating': {'rate': 4.8, 'count': 319}}, {'id': 12, 'title': 'WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive', 'price': 114, 'description': "Expand your PS4 gaming experience, Play anywhere Fast and easy, setup Sleek design with high capacity, 3-year manufacturer's limited warranty", 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg', 'rating': {'rate': 4.8, 'count': 400}}, {'id': 13, 'title': 'Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin', 'price': 599, 'description': '21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg', 'rating': {'rate': 2.9, 'count': 250}}, {'id': 14, 'title': 'Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ', 'price': 999.99, 'description': '49 INCH SUPER ULTRAWIDE 32:9 CURVED GAMING MONITOR with dual 27 inch screen side by side QUANTUM DOT (QLED) TECHNOLOGY, HDR support and factory calibration provides stunningly realistic and accurate color and contrast 144HZ HIGH REFRESH RATE and 1ms ultra fast response time work to eliminate motion blur, ghosting, and reduce input lag', 'category': 'electronics', 'image': 'https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg', 'rating': {'rate': 2.2, 'count': 140}}, {'id': 15, 'title': "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats", 'price': 56.99, 'description': 'Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and Warm.Stand Collar Liner jacket, keep you warm in cold weather. Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.Zippered Hand Pockets and Hidden Pocket keep your things secure. Humanized Design: Adjustable and Detachable Hood and Adjustable cuff to prevent the wind and water,for a comfortable fit. 3 in 1 Detachable Design provide more convenience, you can separate the coat and inner as needed, or wear it together. It is suitable for different season and help you adapt to different climates', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg', 'rating': {'rate': 2.6, 'count': 235}}, {'id': 16, 'title': "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket", 'price': 29.95, 'description': '100% POLYURETHANE(shell) 100% POLYESTER(lining) 75% POLYESTER 25% COTTON (SWEATER), Faux leather material for style and comfort / 2 pockets of front, 2-For-One Hooded denim style faux leather jacket, Button detail on waist / Detail stitching at sides, HAND WASH ONLY / DO NOT BLEACH / LINE DRY / DO NOT IRON', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg', 'rating': {'rate': 2.9, 'count': 340}}, {'id': 17, 'title': 'Rain Jacket Women Windbreaker Striped Climbing Raincoats', 'price': 39.99, 'description': "Lightweight perfet for trip or casual wear---Long sleeve with hooded, adjustable drawstring waist design. Button and zipper front closure raincoat, fully stripes Lined and The Raincoat has 2 side pockets are a good size to hold all kinds of things, it covers the hips, and the hood is generous but doesn't overdo it.Attached Cotton Lined Hood with Adjustable Drawstrings give it a real styled look.", 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg', 'rating': {'rate': 3.8, 'count': 679}}, {'id': 18, 'title': "MBJ Women's Solid Short Sleeve Boat Neck V ", 'price': 9.85, 'description': '95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight fabric with great stretch for comfort, Ribbed on sleeves and neckline / Double stitching on bottom hem', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg', 'rating': {'rate': 4.7, 'count': 130}}, {'id': 19, 'title': "Opna Women's Short Sleeve Moisture", 'price': 7.95, 'description': '100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash &amp; Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg', 'rating': {'rate': 4.5, 'count': 146}}, {'id': 20, 'title': 'DANVOUY Womens T Shirt Casual Cotton Short', 'price': 12.99, 'description': '95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.', 'category': "women's clothing", 'image': 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg', 'rating': {'rate': 3.6, 'count': 145}}]</msg>
+<arg>${All_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.873440" elapsed="0.000680"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:34.872043" elapsed="0.002137"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:34.872010" elapsed="0.002204"/>
+</if>
+<arg>${URL}</arg>
+<arg>${STATUS_SUCCESS}</arg>
+<status status="PASS" start="2024-12-27T10:53:34.537600" elapsed="0.336673"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:34.874958" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:34.874899" elapsed="0.000112"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:34.874655" elapsed="0.000398"/>
+</kw>
+<doc>Verify that all products can be retrieved successfully</doc>
+<tag>1001</tag>
+<tag>GET</tag>
+<status status="PASS" start="2024-12-27T10:53:34.536897" elapsed="0.338279"/>
+</test>
+<test id="s1-t13" name="Should not be able to get product categories" line="64">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:34.876456" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:34.876220" elapsed="0.000390"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:34.875994" elapsed="0.000675"/>
+</kw>
+<kw name="Get product categories" owner="FakeStoreAPIApp">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:39.215214" level="INFO">GET Request : url=https://fakestoreapi.com/test/products/categories 
+ path_url=/test/products/categories 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-12-27T10:53:39.215285" level="INFO">GET Response : url=https://fakestoreapi.com/test/products/categories 
+ status=404, reason=Not Found 
+ headers={'Date': 'Fri, 27 Dec 2024 03:54:04 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'content-security-policy': "default-src 'none'", 'x-content-type-options': 'nosniff', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=bZ%2FKl372Y9RKwbKLaaJy%2Bm9ic29tKTkDya%2BQxPCqEKrVCXmsQuap7krfETWbW10tgKILyFfe6Vtjf5Wj2EpZkRPXZH%2BMQRNdaMzyxPgYKK3xqNawL%2FpJZHtmxu4uWQqlc6H8LVxQRM%2BeVpVaedjq"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865de4dcb12dcc-BKK', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=4413&amp;min_rtt=3881&amp;rtt_var=1835&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2854&amp;recv_bytes=790&amp;delivery_rate=1051275&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=d84f5822783fc624&amp;ts=4309&amp;x=0"'} 
+ body=&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Error&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;pre&gt;Cannot GET /test/products/categories&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+ 
+ </msg>
+<msg time="2024-12-27T10:53:39.215345" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:39.215675" level="INFO">${Response} = &lt;Response [404]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}${CATEGORY_PATH}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:34.877242" elapsed="4.338471"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${Categories}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:39.216059" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${Categories}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-12-27T10:53:39.216175" elapsed="0.000013"/>
+</kw>
+<status status="NOT RUN" start="2024-12-27T10:53:39.215845" elapsed="0.000364"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:39.215824" elapsed="0.000402"/>
+</if>
+<arg>${INVALID_URL}</arg>
+<arg>${STATUS_NOT_FOUND}</arg>
+<status status="PASS" start="2024-12-27T10:53:34.876945" elapsed="4.339316"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:39.216754" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:39.216705" elapsed="0.000089"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:39.216537" elapsed="0.000287"/>
+</kw>
+<doc>Verify that product categories have not retrieved</doc>
+<tag>1011</tag>
+<tag>GET</tag>
+<status status="PASS" start="2024-12-27T10:53:34.875565" elapsed="4.341319"/>
+</test>
+<test id="s1-t14" name="Should be able to add new product" line="24">
+<kw name="Begin API test" owner="CommonAPI" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:39.217573" level="INFO">Creating Session using : alias=My session, url=https://fakestoreapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-12-27T10:53:39.217483" elapsed="0.000189"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:39.217337" elapsed="0.000370"/>
+</kw>
+<kw name="Add new product to FakeStore" owner="FakeStoreAPIApp">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:39.574015" level="INFO">POST Request : url=https://fakestoreapi.com/products 
+ path_url=/products 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '112', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=title=Snow+Fuji&amp;price=53.99&amp;description=Hello+World&amp;category=men%27s+clothing&amp;image=https%3A%2F%2Fwww.google.com 
+ </msg>
+<msg time="2024-12-27T10:53:39.574139" level="INFO">POST Response : url=https://fakestoreapi.com/products 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 27 Dec 2024 03:54:04 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'etag': 'W/"86-34sq43zBk/tT2LiJfEjRAwVkl78"', 'x-powered-by': 'Express', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=v1YJlDThePWfIaR8C2hmObr4C%2FTDPvoxJaLoFNS0Ej0nYzs018jBtTArHrxdKkTS8sE3FWqsIIyJKBOnIfX5YDdWmThwCguOvPkRQEw3QuUM8kauATA9sLxKyLP8te3hrsUut4RkZvO8k8%2FZ%2Bhxr"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8f865e005a3f4da7-SIN', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=27891&amp;min_rtt=27808&amp;rtt_var=10594&amp;sent=6&amp;recv=7&amp;lost=0&amp;retrans=0&amp;sent_bytes=2853&amp;recv_bytes=979&amp;delivery_rate=143283&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=7ae736735b26bc19&amp;ts=285&amp;x=0"'} 
+ body={"id":21,"title":"Snow Fuji","price":"53.99","description":"Hello World","image":"https://www.google.com","category":"men's clothing"} 
+ </msg>
+<msg time="2024-12-27T10:53:39.574253" level="INFO">C:\Users\tao_2\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakestoreapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-12-27T10:53:39.574509" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>${CREATED_SESSION}</arg>
+<arg>${URL}${PRODUCTS_PATH}</arg>
+<arg>${NEW_PRODUCT}</arg>
+<arg>expected_status=${Status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-12-27T10:53:39.217997" elapsed="0.356546"/>
+</kw>
+<if>
+<branch type="IF" condition="${Status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-12-27T10:53:39.575287" level="INFO">${Created_Product} = {'id': 21, 'title': 'Snow Fuji', 'price': '53.99', 'description': 'Hello World', 'image': 'https://www.google.com', 'category': "men's clothing"}</msg>
+<var>${Created_Product}</var>
+<arg>${Response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-12-27T10:53:39.574907" elapsed="0.000426"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-12-27T10:53:39.575583" level="INFO">{'id': 21, 'title': 'Snow Fuji', 'price': '53.99', 'description': 'Hello World', 'image': 'https://www.google.com', 'category': "men's clothing"}</msg>
+<arg>${Created_Product}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-12-27T10:53:39.575438" elapsed="0.000180"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:39.574648" elapsed="0.001019"/>
+</branch>
+<status status="PASS" start="2024-12-27T10:53:39.574630" elapsed="0.001069"/>
+</if>
+<arg>${URL}</arg>
+<arg>${STATUS_SUCCESS}</arg>
+<status status="PASS" start="2024-12-27T10:53:39.217851" elapsed="0.357897"/>
+</kw>
+<kw name="End API test" owner="CommonAPI" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-12-27T10:53:39.576299" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-12-27T10:53:39.576243" elapsed="0.000106"/>
+</kw>
+<status status="PASS" start="2024-12-27T10:53:39.576046" elapsed="0.000344"/>
+</kw>
+<doc>Verify that product has added successfully</doc>
+<tag>1003</tag>
+<tag>POST</tag>
+<status status="PASS" start="2024-12-27T10:53:39.217110" elapsed="0.359370"/>
 </test>
 <doc>This is my first assignment whole suit</doc>
-<status status="PASS" start="2024-12-27T10:16:57.408980" elapsed="3.396450"/>
+<meta name="Randomized">Tests (seed 454455892570932520)</meta>
+<status status="PASS" start="2024-12-27T10:53:00.833357" elapsed="38.743580"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="14" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
+<stat pass="1" fail="0" skip="0">1001</stat>
+<stat pass="1" fail="0" skip="0">1002</stat>
+<stat pass="1" fail="0" skip="0">1003</stat>
+<stat pass="1" fail="0" skip="0">1004</stat>
+<stat pass="1" fail="0" skip="0">1005</stat>
+<stat pass="1" fail="0" skip="0">1006</stat>
+<stat pass="1" fail="0" skip="0">1007</stat>
+<stat pass="1" fail="0" skip="0">1008</stat>
+<stat pass="1" fail="0" skip="0">1009</stat>
+<stat pass="1" fail="0" skip="0">1010</stat>
+<stat pass="1" fail="0" skip="0">1011</stat>
+<stat pass="1" fail="0" skip="0">1012</stat>
+<stat pass="1" fail="0" skip="0">1013</stat>
 <stat pass="1" fail="0" skip="0">1014</stat>
-<stat pass="1" fail="0" skip="0">GET</stat>
+<stat pass="3" fail="0" skip="0">DELETE</stat>
+<stat pass="7" fail="0" skip="0">GET</stat>
+<stat pass="2" fail="0" skip="0">POST</stat>
+<stat pass="2" fail="0" skip="0">PUT</stat>
+<stat pass="1" fail="0" skip="0">SORT</stat>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="FakeStoreAPI">FakeStoreAPI</stat>
+<stat pass="14" fail="0" skip="0" id="s1" name="FakeStoreAPI">FakeStoreAPI</stat>
 </suite>
 </statistics>
 <errors>

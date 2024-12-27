@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b153125e-a012-41b3-8532-9c5e8f357078" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Saucedemo.robot" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Saucedemo.robot" afterDir="false" />
-    </list>
+    <list default="true" id="b153125e-a012-41b3-8532-9c5e8f357078" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,7 +29,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/GitHub/Robotframework/Part2_UI_Testing",
+    "last_opened_file_path": "D:/GitHub/Robotframework/Part1_API_Testing",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
 }]]></component>
