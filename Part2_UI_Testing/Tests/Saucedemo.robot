@@ -39,7 +39,7 @@ Products should be able to add to cart
     SaucedemoApp.Verify inventory page loaded
     SaucedemoApp.Add products to cart
 
-Products should add to cart 
+Products should add to cart
     [Documentation]         Verify products added to cart successfully
     [Tags]                  1005
     SaucedemoApp.Go to landing page
