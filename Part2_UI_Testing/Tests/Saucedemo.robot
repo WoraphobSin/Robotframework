@@ -17,14 +17,14 @@ Landing page should loaded
     SaucedemoApp.Go to landing page
 
 Login should succeed with valid credentials
-    [Documentation]         Valid credentials should be able to login
+    [Documentation]         Verify valid credentials can login
     [Tags]                  1002
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login           ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
     SaucedemoApp.Verify inventory page loaded
 
 Invalid login scenarios should display correct error messages
-    [Documentation]         ...
+    [Documentation]         Verify invalid credentials can not login with correct error message
     [Tags]                  1003
     [Template]              Test multiple login scenarios
     ${INVALID_CREDENTIALS}
@@ -32,15 +32,15 @@ Invalid login scenarios should display correct error messages
     ${BLANK_PASSWORD}
 
 Products should be able to add to cart
-    [Documentation]         Add products to cart
+    [Documentation]         Verify that can add products to cart
     [Tags]                  1004
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login           ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
     SaucedemoApp.Verify inventory page loaded
     SaucedemoApp.Add products to cart
 
-Verify products added to cart
-    [Documentation]         Verify product added to cart
+Products should add to cart 
+    [Documentation]         Verify products added to cart successfully
     [Tags]                  1005
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login           ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
@@ -49,8 +49,8 @@ Verify products added to cart
     SaucedemoApp.Go to cart
     SaucedemoApp.Verify products added
 
-Should be able to go to checkout page
-    [Documentation]         Verify checkout page load
+Checkout page should load after click "Checkout" button
+    [Documentation]         Verify "Checkout" button work correctly
     [Tags]                  1006
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login           ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
@@ -61,7 +61,7 @@ Should be able to go to checkout page
     SaucedemoApp.Go to checkout step one page
 
 Should be able to continue with filled information in checkout-step-one page
-    [Documentation]         ...
+    [Documentation]         Verify that filled information can contiue
     [Tags]                  1007
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
@@ -74,7 +74,7 @@ Should be able to continue with filled information in checkout-step-one page
     SaucedemoApp.Go to checkout step two page
 
 Should not be able to continue with empty information in checkout-step-one page
-    [Documentation]         ...
+    [Documentation]         Verify that empty information field can not continue
     [Tags]                  1008
     [Template]              Test multiple checkout information scenarios
     ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}       ${RECEIVER_BLANK_FIRST_NAME}
@@ -82,7 +82,7 @@ Should not be able to continue with empty information in checkout-step-one page
     ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}       ${RECEIVER_BLANK_POSTAL_CODE}
 
 Checkout-step-two page should contains correct products and price
-    [Documentation]         ...
+    [Documentation]         Verify that products and price display correctly
     [Tags]                  1009
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
@@ -96,8 +96,8 @@ Checkout-step-two page should contains correct products and price
     SaucedemoApp.Recheck products added
     SaucedemoApp.Verify subtotal price
 
-Checkout-complete page should loads
-    [Documentation]         ...
+Checkout-complete page should load after click "Finish" button
+    [Documentation]         Verify "Finish" button work correctly
     [Tags]                  1010
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
@@ -112,8 +112,8 @@ Checkout-complete page should loads
     SaucedemoApp.Verify subtotal price
     SaucedemoApp.Go to checkout complete page
 
-Home page should load after click "Back Home"
-    [Documentation]         ...
+Home page should load after click "Back Home" button
+    [Documentation]         Verify "Back Home" button work correctly
     [Tags]                  1011
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
@@ -130,7 +130,7 @@ Home page should load after click "Back Home"
     SaucedemoApp.Back to home page
 
 Should be able to log out
-    [Documentation]         ...
+    [Documentation]         Verify User can logout successfully
     [Tags]                  1012
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
@@ -138,7 +138,7 @@ Should be able to log out
     SaucedemoApp.Attempt to logout
 
 Continue shopping button should be back to inventory page
-    [Documentation]         ...
+    [Documentation]         Verify "Continue shopping" button is work correctly
     [Tags]                  1013
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
@@ -149,7 +149,7 @@ Continue shopping button should be back to inventory page
     SaucedemoApp.Back to inventory page
 
 Products should be able to remove from cart
-    [Documentation]         ...
+    [Documentation]         Verify that products have been removed from cart
     [Tags]                  1014
     SaucedemoApp.Go to landing page
     SaucedemoApp.Attempt to login               ${LIST_VALID_USERNAME}[0]           ${VALID_PASSWORD}
@@ -159,7 +159,7 @@ Products should be able to remove from cart
     SaucedemoApp.Remove products from cart
 
 Filter should be apply to products list
-    [Documentation]         ...
+    [Documentation]         Verify filter select is applied
     [Tags]                  1015
     [Template]              Select filter in inventory page
     ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}    ${SELECT_FILTER_INDEX}[0]
