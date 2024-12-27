@@ -11,6 +11,7 @@ ${VALID_PASSWORD}           secret_sauce
 &{BLANK_PASSWORD}           Username=HappyNewYear   Password=               ExpectedErrorMsg=Epic sadface: Password is required
 
 # Product information
+@{SELECT_FILTER_INDEX}      0    1   2   3
 ${PRODUCT_NAME_1}           xpath=//div[@class='inventory_list']/div[4]/div[2]/div[1]/a/div
 ${PRODUCT_NAME_2}           xpath=//div[@class='inventory_list']/div[5]/div[2]/div[1]/a/div
 ${PRODUCT_PRICE_1}          xpath=//div[@class='inventory_list']/div[4]/div[2]/div[2]/div[1]

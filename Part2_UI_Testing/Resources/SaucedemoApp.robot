@@ -40,8 +40,24 @@ Back to inventory page
 Add products to cart
     Inventory.Click "Add to cart" button
 
+Select filter in inventory page
+    [Arguments]    ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}     ${Index}
+    go to landing page
+    attempt to login    ${LIST_VALID_USERNAME}[0]      ${VALID_PASSWORD}
+    verify inventory page loaded
+    Inventory.Select filter     ${Index}
+
+Select A-Z filter
+    Inventory.Select A-Z filter
+
 Select Z-A filter
     Inventory.Select Z-A filter
+
+Select LOW-HIGH filter
+    Inventory.Select LOW-HIGH filter
+
+Select HIGH-LOW filter
+    Inventory.Select HIGH-LOW filter
 
 Go to cart
     TopNav.Click "Cart" icon
@@ -96,3 +112,5 @@ Go to checkout complete page
 
 Back to home page
     Checkout-complete.Click "Back Home" button
+
+

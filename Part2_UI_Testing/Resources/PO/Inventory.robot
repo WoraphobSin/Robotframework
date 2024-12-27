@@ -41,6 +41,10 @@ Click "Add to cart" button
     click button        ${INVENTORY_ADD_PRODUCT_4_TO_CART_BUTTON}
     click button        ${INVENTORY_ADD_PRODUCT_5_TO_CART_BUTTON}
 
+Select filter
+    [Arguments]    ${Index}
+    select from list by index       ${INVENTORY_SORT_CONTAINER_SELECT}      ${Index}
+
 Select A-Z filter
     select from list by index       ${INVENTORY_SORT_CONTAINER_SELECT}      1
 

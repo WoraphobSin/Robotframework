@@ -157,3 +157,14 @@ Products should be able to remove from cart
     SaucedemoApp.Add products to cart
     SaucedemoApp.Go to cart
     SaucedemoApp.Remove products from cart
+
+Filter should be apply to products list
+    [Documentation]         ...
+    [Tags]                  1015
+    [Template]              Select filter in inventory page
+    ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}    ${SELECT_FILTER_INDEX}[0]
+    ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}    ${SELECT_FILTER_INDEX}[1]
+    ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}    ${SELECT_FILTER_INDEX}[2]
+    ${LIST_VALID_USERNAME}      ${VALID_PASSWORD}    ${SELECT_FILTER_INDEX}[3]
+
+
